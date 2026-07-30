@@ -18,13 +18,19 @@ from pyromod import listen
 from subprocess import getstatusoutput
 from pytube import YouTube
 from aiohttp import web
-
+import logging
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from pyrogram.errors import FloodWait
 from pyrogram.errors.exceptions.bad_request_400 import StickerEmojiInvalid
 from pyrogram.types.messages_and_media import message
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 # Initialize the bot
 bot = Client(
@@ -37,6 +43,96 @@ bot = Client(
 my_name = "Mr_X45"
 
 cookies_file_path = os.getenv("COOKIES_FILE_PATH", "/modules/youtube_cookies.txt")
+
+import os
+import subprocess
+
+def pwdlx_video(url: str, output_filename: str):
+    cmd = [
+        "yt-dlp",
+        "--newline",
+        "--merge-output-format", "mp4",
+        "--remux-video", "mp4",
+        "--concurrent-fragments", "8",
+        "--downloader", "aria2c",
+        "--downloader-args",
+        "aria2c:-x16 -s16 -k1M -j16 --file-allocation=none",
+        "-o", output_filename,
+        url,
+    ]
+
+    subprocess.run(cmd, check=True)
+    return output_filename
+    
+def extract_content_id(url):
+    """URL se content ID extract karega with precise debugging"""
+    logger.debug(f"extract_content_id called with URL: {url}")
+    
+    try:
+        if 'contentId=' in url:
+            logger.debug("Found 'contentId=' in URL")
+            parts = url.split('contentId=')
+            
+            if len(parts) > 1:
+                content_id = parts[1]
+                logger.debug(f"Initial split content ID: {content_id}")
+                
+                # 1. URL parameters ('?' ya '&') se split karein taaki baaki ka URL hat jaye
+                for char in ['?', '&']:
+                    if char in content_id:
+                        content_id = content_id.split(char)[0]
+                        logger.debug(f"After removing query params ('{char}'): {content_id}")
+                
+                # 2. Agar end me '.m3u8' hai toh use hatao
+                if content_id.endswith('.m3u8'):
+                    content_id = content_id[:-5] # .m3u8 exactly 5 characters ka hota hai
+                    logger.debug(f"After removing trailing .m3u8: {content_id}")
+                # Back-up check agar URL ke beech me kahin string ke sath .m3u8 laga ho
+                elif '.m3u8' in content_id:
+                    content_id = content_id.split('.m3u8')[0]
+                    logger.debug(f"After inline .m3u8 split: {content_id}")
+                
+                logger.info(f"✅ Extracted content ID: {content_id}")
+                return content_id
+        
+        logger.warning("❌ No content ID found in URL")
+        return None
+        
+    except Exception as e:
+        logger.error(f"❌ Error extracting content ID: {e}", exc_info=True)
+        return None
+
+
+
+def get_jw_signed_url(content_id, access_token):
+    url = f"https://api.classplusapp.com/cams/uploader/video/jw-signed-url?contentId={urllib.parse.quote(content_id, safe='')}"
+
+    headers = {
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Language": "en",
+        "Origin": "https://web.classplusapp.com",
+        "Referer": "https://web.classplusapp.com/",
+        "Region": "IN",
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+        "X-Access-Token": access_token,
+    }
+
+    try:
+        response = requests.get(url, headers=headers, timeout=15)
+        data = response.json()
+
+        print(f"[JW] Status : {response.status_code}")
+        print(f"[JW] Response : {data}")
+
+        final_url = data.get("url")
+        print(f"[JW] URL : {final_url}")
+
+        return final_url
+
+    except Exception as e:
+        print(f"[JW] Error : {e}")
+        return None
+
 
 # Define aiohttp routes
 routes = web.RouteTableDef()
@@ -272,21 +368,20 @@ async def txt_handler(bot: Client, m: Message):
                         text = await resp.text()
                         url = re.search(r"(https://.*?playlist.m3u8.*?)\"", text).group(1)
 
-            elif 'videos.classplusapp' in url or "tencdn.classplusapp" in url or "webvideos.classplusapp.com" in url or "media-cdn-alisg.classplusapp.com" in url or "videos.classplusapp" in url or "videos.classplusapp.com" in url or "media-cdn-a.classplusapp" in url or "media-cdn.classplusapp" in url:
-             url = requests.get(f'https://api.classplusapp.com/cams/uploader/video/jw-signed-url?url={url}', headers={'x-access-token': 'eyJjb3Vyc2VJZCI6IjQ1NjY4NyIsInR1dG9ySWQiOm51bGwsIm9yZ0lkIjo0ODA2MTksImNhdGVnb3J5SWQiOm51bGx9r'}).json()['url']
-
+            elif 'https://contentId=' in url or 'contentHashIdl=' in url:
+                content_id = extract_content_id(url)
+                cpurl = get_jw_signed_url(content_id, access_token)
+                print(f"Fetched URL: {cpurl}") # Debugging ke liye
+                url = cpurl
+                print(f"CP Url: {url}")
             
-            #elif '/master.mpd' in url:
-             #id =  url.split("/")[-2]
-             #url = f"https://player.muftukmall.site/?id={id}"
-            #elif '/master.mpd' in url:
-             #id =  url.split("/")[-2]
-             #url = f"https://anonymouspwplayerrr-3dba7e3fb6a8.herokuapp.com/pw?url={url}?token={raw_text4}"
-            #url = f"https://madxapi-d0cbf6ac738c.herokuapp.com/{id}/master.m3u8?token={raw_text4}"
-            elif"d1d34p8vz63oiq" in url or "sec1.pw.live" in url:
-             url = f"https://anonymouspwplayerrr-3dba7e3fb6a8.herokuapp.com/pw?url={url}&token={raw_text4}"
-                     
-                                                         
+            
+            elif '/master.mpd' in url or "/dash/" in url or ".mp4?" in url or "?Signature=" in url or "d1d34p8vz63oiq.cloudfront.net" in url or "parentId=" in url or "childId=" in url:
+                if "parentId=" in url or "childId=" in url:
+                    url = f"https://ankitshakyaxapi.vercel.app/download?mpd_url={url}&token={raw_text4}&quality={raw_text2}"
+                else:
+                    url = f"https://ankitshakyaxapi.vercel.app/download?mpd_url={url}&quality={raw_text2}"
+                    
             name1 = links[i][0].replace("\t", "").replace(":", "").replace("/", "").replace("+", "").replace("#", "").replace("|", "").replace("@", "").replace("*", "").replace(".", "").replace("https", "").replace("http", "").strip()
             name = f'{str(count).zfill(3)}) {name1[:60]} {my_name}'
                       
@@ -372,7 +467,18 @@ async def txt_handler(bot: Client, m: Message):
                         await m.reply_text(str(e))
                         time.sleep(e.x)
                         continue                       
-                          
+
+                elif '/master.mpd' in url or "/dash/" in url or ".mp4?" in url or "?Signature=" in url or "d1d34p8vz63oiq.cloudfront.net" in url or "parentId=" in url or "childId=" in url:
+                    Show = f"**Physics Wallah**\n\n✰🖥️𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀»\n\n📝 Title:- `{name}\n\n🖥️ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe"
+                    prog = await m.reply_text(Show)
+                    res_file = pwdlx_video(url, cmd, name)
+                    filename = res_file
+                    await prog.delete(True)
+                    await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
+                    count += 1
+                    time.sleep(e.x)
+                    continue
+                    
                 else:
                     Show = f"✰🖥️ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀 »\n\n📝 Title:- `{name}\n\n📹 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @Rahul_Official_X45 ❖"
                     prog = await m.reply_text(Show)
@@ -509,38 +615,20 @@ async def txt_handler(bot: Client, m: Message):
                         text = await resp.text()
                         url = re.search(r"(https://.*?playlist.m3u8.*?)\"", text).group(1)
 
-            elif 'videos.classplusapp' in url or "tencdn.classplusapp" in url or "webvideos.classplusapp.com" in url or "media-cdn-alisg.classplusapp.com" in url or "videos.classplusapp" in url or "videos.classplusapp.com" in url or "media-cdn-a.classplusapp" in url or "media-cdn.classplusapp" in url:
-             url = requests.get(f'https://api.classplusapp.com/cams/uploader/video/jw-signed-url?url={url}', headers={'x-access-token': 'eyJjb3Vyc2VJZCI6IjQ1NjY4NyIsInR1dG9ySWQiOm51bGwsIm9yZ0lkIjo0ODA2MTksImNhdGVnb3J5SWQiOm51bGx9r'}).json()['url']
-
-
-            #elif '/master.mpd' in url:
-             #id =  url.split("/")[-2]
-             #url = f"https://player.muftukmall.site/?id={id}"
-            #elif '/master.mpd' in url:
-             #id =  url.split("/")[-2]
-             #url = f"https://anonymouspwplayerrr-3dba7e3fb6a8.herokuapp.com/pw?url={url}?token={raw_text4}"
-            #url = f"https://madxapi-d0cbf6ac738c.herokuapp.com/{id}/master.m3u8?token={raw_text4}"
-            elif"d1d34p8vz63oiq" in url or "sec1.pw.live" in url:
-             url = f"https://anonymouspwplayerrr-3dba7e3fb6a8.herokuapp.com/pw?url={url}&token={raw_text4}"
-                
-           
-            elif "apps-s3-jw-prod.utkarshapp.com" in url:
-                if 'enc_plain_mp4' in url:
-                    url = url.replace(url.split("/")[-1], res+'.mp4')
+            elif 'https://contentId=' in url or 'contentHashIdl=' in url:
+                content_id = extract_content_id(url)
+                cpurl = get_jw_signed_url(content_id, access_token)
+                print(f"Fetched URL: {cpurl}")
+                url = cpurl
+                print(f"CP Url: {url}")
+            
+            
+            elif '/master.mpd' in url or "/dash/" in url or ".mp4?" in url or "?Signature=" in url or "d1d34p8vz63oiq.cloudfront.net" in url or "parentId=" in url or "childId=" in url:
+                if "parentId=" in url or "childId=" in url:
+                    url = f"https://ankitshakyaxapi.vercel.app/download?mpd_url={url}&token={raw_text4}&quality={raw_text2}"
+                else:
+                    url = f"https://ankitshakyaxapi.vercel.app/download?mpd_url={url}&quality={raw_text2}"
                     
-                elif 'Key-Pair-Id' in url:
-                    url = None
-                    
-                elif '.m3u8' in url:
-                    q = ((m3u8.loads(requests.get(url).text)).data['playlists'][1]['uri']).split("/")[0]
-                    x = url.split("/")[5]
-                    x = url.replace(x, "")
-                    url = ((m3u8.loads(requests.get(url).text)).data['playlists'][1]['uri']).replace(q+"/", x)
-                    
-            elif '/master.mpd' in url:
-             vid_id =  url.split("/")[-2]
-             url =  f"https://pw-url-api-v1mf.onrender.com/process?v=https://sec1.pw.live/{vid_id}/master.mpd&quality={raw_text2}"
-
             name1 = links[i][0].replace("\t", "").replace(":", "").replace("/", "").replace("+", "").replace("#", "").replace("|", "").replace("@", "").replace("*", "").replace(".", "").replace("https", "").replace("http", "").strip()
             name = f'{str(count).zfill(3)}) {name1[:60]} {my_name}'
           
@@ -625,8 +713,19 @@ async def txt_handler(bot: Client, m: Message):
                     except FloodWait as e:
                         await m.reply_text(str(e))
                         time.sleep(e.x)
-                        continue                       
-                          
+                        continue
+                        
+                elif '/master.mpd' in url or "/dash/" in url or ".mp4?" in url or "?Signature=" in url or "d1d34p8vz63oiq.cloudfront.net" in url or "parentId=" in url or "childId=" in url:
+                    Show = f"**Physics Wallah**\n\n✰🖥️𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀»\n\n📝 Title:- `{name}\n\n🖥️ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe"
+                    prog = await m.reply_text(Show)
+                    res_file = pwdlx_video(url, cmd, name)
+                    filename = res_file
+                    await prog.delete(True)
+                    await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
+                    count += 1
+                    time.sleep(e.x)
+                    continue
+                    
                 else:
                     Show = f"✰🖥️𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀»\n\n📝 Title:- `{name}\n\n🖥️ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe"
                     prog = await m.reply_text(Show)
