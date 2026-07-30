@@ -27,11 +27,17 @@ from pyrogram.types.messages_and_media import message
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    level=logging.ERROR,
+    format=
+    "%(asctime)s - %(levelname)s - %(message)s [%(filename)s:%(lineno)d]",
+    datefmt="%d-%b-%y %H:%M:%S",
+    handlers=[
+        RotatingFileHandler("logs.txt", maxBytes=50000000, backupCount=10),
+        logging.StreamHandler(),
+    ],
 )
-logger = logging.getLogger(__name__)
-
+logging.getLogger("pyrogram").setLevel(logging.WARNING)
+logging = logging.getLogger()
 # Initialize the bot
 bot = Client(
     "bot",
@@ -64,44 +70,46 @@ def pwdlx_video(url: str, output_filename: str):
     subprocess.run(cmd, check=True)
     return output_filename
     
-def extract_content_id(url):
-    """URL se content ID extract karega with precise debugging"""
-    logger.debug(f"extract_content_id called with URL: {url}")
-    
-    try:
-        if 'contentId=' in url:
-            logger.debug("Found 'contentId=' in URL")
-            parts = url.split('contentId=')
-            
-            if len(parts) > 1:
-                content_id = parts[1]
-                logger.debug(f"Initial split content ID: {content_id}")
-                
-                # 1. URL parameters ('?' ya '&') se split karein taaki baaki ka URL hat jaye
-                for char in ['?', '&']:
-                    if char in content_id:
-                        content_id = content_id.split(char)[0]
-                        logger.debug(f"After removing query params ('{char}'): {content_id}")
-                
-                # 2. Agar end me '.m3u8' hai toh use hatao
-                if content_id.endswith('.m3u8'):
-                    content_id = content_id[:-5] # .m3u8 exactly 5 characters ka hota hai
-                    logger.debug(f"After removing trailing .m3u8: {content_id}")
-                # Back-up check agar URL ke beech me kahin string ke sath .m3u8 laga ho
-                elif '.m3u8' in content_id:
-                    content_id = content_id.split('.m3u8')[0]
-                    logger.debug(f"After inline .m3u8 split: {content_id}")
-                
-                logger.info(f"✅ Extracted content ID: {content_id}")
-                return content_id
-        
-        logger.warning("❌ No content ID found in URL")
-        return None
-        
-    except Exception as e:
-        logger.error(f"❌ Error extracting content ID: {e}", exc_info=True)
-        return None
 
+def extract_content_id(url):
+  """URL se content ID extract karega"""
+  try:
+    if "contentId=" in url:
+      print("Found 'contentId=' in URL", flush=True)
+      parts = url.split("contentId=")
+
+      if len(parts) > 1:
+        content_id = parts[1]
+        print(f"Initial split content ID: {content_id}", flush=True)
+
+        # 1. URL parameters ('?' ya '&') se split karein taaki baaki ka URL hat jaye
+        for char in ["?", "&"]:
+          if char in content_id:
+            content_id = content_id.split(char)[0]
+            print(
+                f"After removing query params ('{char}'): {content_id}",
+                flush=True,
+            )
+
+        # 2. Agar end me '.m3u8' hai toh use hatao
+        if content_id.endswith(".m3u8"):
+          content_id = content_id[:-5]  # .m3u8 exactly 5 characters ka hota hai
+          print(f"After removing trailing .m3u8: {content_id}", flush=True)
+        # Back-up check agar URL ke beech me kahin string ke sath .m3u8 laga ho
+        elif ".m3u8" in content_id:
+          content_id = content_id.split(".m3u8")[0]
+          print(f"After inline .m3u8 split: {content_id}", flush=True)
+
+        print(f"✅ Extracted content ID: {content_id}", flush=True)
+        return content_id
+
+    print("❌ No content ID found in URL", flush=True)
+    return None
+
+  except Exception as e:
+    print(f"❌ Error extracting content ID: {e}", flush=True)
+    return None
+      
 
 
 def get_jw_signed_url(content_id, access_token):
@@ -121,13 +129,13 @@ def get_jw_signed_url(content_id, access_token):
         response = requests.get(url, headers=headers, timeout=15)
         data = response.json()
 
-        print(f"[JW] Status : {response.status_code}")
-        print(f"[JW] Response : {data}")
+        print(f"[JW] Status : {response.status_code}", flush=True)
+        print(f"[JW] Response : {data}", flush=True)
 
-        final_url = data.get("url")
-        print(f"[JW] URL : {final_url}")
+        url = data.get("url")
+        print(f"[JW] URL : {url}", flush=True)
 
-        return final_url
+        return url
 
     except Exception as e:
         print(f"[JW] Error : {e}")
@@ -329,9 +337,9 @@ async def txt_handler(bot: Client, m: Message):
     raw_text4 = input4.text
     await input4.delete(True)
     if raw_text4 == '/vip':
-        MR = token
+        access_token = token
     else:
-        MR = raw_text4
+        access_token = raw_text4
         
     await editable.edit("Now send the **Thumb url**\n**Eg: Who's End With .jpg** ``\n\nor Send `no`")
     input6 = message = await bot.listen(editable.chat.id)
@@ -576,9 +584,9 @@ async def txt_handler(bot: Client, m: Message):
     raw_text4 = input4.text
     await input4.delete(True)
     if raw_text4 == '/vip':
-        MR = token
+        access_token = token
     else:
-        MR = raw_text4
+        access_token = raw_text4
         
     await editable.edit("Now send the **Thumb url**\n**Eg Who's End With .jpg:** ``\n\nor Send `no`")
     input6 = message = await bot.listen(editable.chat.id)
