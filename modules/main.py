@@ -265,7 +265,14 @@ async def restart_handler(_, m):
 
 @bot.on_message(filters.command(["Mrx45"]) )
 async def txt_handler(bot: Client, m: Message):
-    editable = await m.reply_text(f"**🔹Hi I am Poweful Sweet TXT Downloader📥 Bot.**\n🔹**Send me the TXT file and Just wait and Watch💸.**")
+    editable = await m.reply_text(
+        f"╭───❮ **MR_X45 TXT LEECHER** ❯───►\n"
+        f"│\n"
+        f"├──» **SEND ME THE TXT FILE TO BEGIN** 📥\n"
+        f"├──» **JUST WAIT AND WATCH THE MAGIC** ⚡\n"
+        f"│\n"
+        f"╰───╭⚡ **POWERED BY MR_X45** ⚡╯───►"
+    )
     input: Message = await bot.listen(editable.chat.id)
     x = await input.download()
     await input.delete(True)
@@ -285,7 +292,7 @@ async def txt_handler(bot: Client, m: Message):
         os.remove(x)
         return
    
-    await editable.edit(f"Total links found are **{len(links)}**\n\nSend From where you want to download🙄 initial is **1**")
+   await editable.edit(f"╭───❮ **TOTAL LINKS FOUND:** `{len(links)}` ❯───►\n├──» **ENTER START INDEX:** *(DEFAULT IS 1)* 🔢\n╰───╭⚡ **[ Mr_X45 Studio ]** ⚡╯───►")
     input0: Message = await bot.listen(editable.chat.id)
     raw_text = input0.text
     await input0.delete(True)
@@ -293,7 +300,7 @@ async def txt_handler(bot: Client, m: Message):
         arg = int(raw_text)
     except:
         arg = 1
-    await editable.edit("**Enter Your 𝗕𝗮𝘁𝗰𝗵 Name or send '/Rahul' for extracting name from your text filename🧐.**")
+  await editable.edit(f"**ENTER YOUR BATCH NAME OR SEND** `/Rahul` **FOR EXTRACTING NAME FROM TEXT FILENAME.**")
     input1: Message = await bot.listen(editable.chat.id)
     raw_text0 = input1.text
     await input1.delete(True)
@@ -302,7 +309,16 @@ async def txt_handler(bot: Client, m: Message):
     else:
         b_name = raw_text0
 
-    await editable.edit("**Enter resolution.\n Eg : 144, 250, 360, 480, 720 or 1080😎.**")
+   await editable.edit(
+        f"╭───❮ **SELECT RESOLUTION** ❯───►\n"
+        f"├──» **144**\n"
+        f"├──» **240**\n"
+        f"├──» **360**\n"
+        f"├──» **480**\n"
+        f"├──» **720**\n"
+        f"├──» **1080**\n"
+        f"╰───╭⚡ **[ Mr_X45 ]** ⚡╯───►"
+    )
     input2: Message = await bot.listen(editable.chat.id)
     raw_text2 = input2.text
     await input2.delete(True)
@@ -324,7 +340,7 @@ async def txt_handler(bot: Client, m: Message):
     except Exception:
             res = "UN"
     
-    await editable.edit("**Enter Your 𝙉𝙖𝙢𝙚 or send '/Rahul' for use default🥂.**\n**For an Example**:\n @rahulx45_vibe")
+   await editable.edit(f"╭───❮ **CREDITS SETUP** ❯───►\n├──» **ENTER UPLOADER NAME OR SEND** `/Rahul` **FOR DEFAULT** 🎓\n╰───╭⚡ **[ @rahulx45_vibe ]** ⚡╯───►")
     input3: Message = await bot.listen(editable.chat.id)
     raw_text3 = input3.text
     await input3.delete(True)
@@ -333,7 +349,7 @@ async def txt_handler(bot: Client, m: Message):
     else:
         CR = raw_text3
         
-    await editable.edit("**Enter Your PW 𝗧𝗼𝗸𝗲𝗻 For 𝐌𝐏𝐃 𝐔𝐑𝐋 or send '/X45' for use default🫣**")
+    await editable.edit(f"╭───❮ **PW TOKEN SETUP** ❯───►\n├──» **ENTER PW TOKEN OR SEND** `/X45` **FOR DEFAULT** 🔑\n╰───╭⚡ **[ Mr_X45 Studio ]** ⚡╯───►")
     input4: Message = await bot.listen(editable.chat.id)
     raw_text4 = input4.text
     await input4.delete(True)
@@ -342,7 +358,7 @@ async def txt_handler(bot: Client, m: Message):
     else:
         access_token = raw_text4
         
-    await editable.edit("Now send the **Thumb url**\n**Eg: Who's End With .jpg** ``\n\nor Send `no`")
+    await editable.edit(f"╭───❮ **THUMBNAIL SETUP** ❯───►\n├──» **SEND THUMBNAIL URL** (Ending with .jpg) **OR SEND** `no` 🖼️\n╰───╭⚡ **[ Mr_X45 Studio ]** ⚡╯───►")
     input6 = message = await bot.listen(editable.chat.id)
     raw_text6 = input6.text
     await input6.delete(True)
@@ -415,8 +431,29 @@ async def txt_handler(bot: Client, m: Message):
 
             try:  
                 
-                cc = f'**📹 VID_ID: {str(count).zfill(3)}.\n\n📒 Title: {name1} {res}.mkv\n\n<pre><code>📚 Batch Name: {b_name}</code></pre>\n\n📥 Extracted By𓆩♛𓆪 : \n{CR}\n\n**∘𒆜━━⊱『𝐌𝐫_𝐗𝟒𝟓』⊰━━𒆜**'
-                cc1 = f'**🗃️ PDF_ID: {str(count).zfill(3)}.\n\n📒 Title: {name1} .pdf\n\n<pre><code>📚 Batch Name: {b_name}</code></pre>\n\n📥 Extracted By𓆩♛𓆪 : \n{CR}\n\n**∘𒆜━━⊱『𝐌𝐫_𝐗𝟒𝟓』⊰━━𒆜∘**'
+                cc = (
+                    f"╭━━━❮ 👑 **𝗠𝗥_𝗫𝟰𝟱 𝗥𝗢𝗬𝗔𝗟 𝗟𝗘𝗖𝗧𝗨𝗥𝗘** 👑 ❯━━━►\n"
+                    f"┃\n"
+                    f"┣━━◈ **𝗜𝗗:** `{str(count).zfill(3)}` \n"
+                    f"┣━━◈ **𝗧𝗜𝗧𝗟𝗘:** **{name1}**\n"
+                    f"┣━━◈ **𝗤𝗨𝗔𝗟𝗜𝗧𝗬:** **{raw_text2}p HD** 🎬\n"
+                    f"┣━━◈ **𝗕𝗔𝗧𝗖𝗛:** **{b_name}** 📚\n"
+                    f"┃\n"
+                    f"┣━━❖ **𝗘𝗫𝗧𝗥𝗔𝗖𝗧𝗘𝗗 𝗕𝗬:** **{CR}**\n"
+                    f"┃\n"
+                    f"╰━━━╭⚜️ **𝗣𝗢𝗪𝗘𝗥𝗘𝗗 𝗕𝗬 𝗠𝗥_𝗫𝟰𝟱** ⚜️╯━━━►"
+                )
+               cc1 = (
+                    f"╭━━━❮ 📄 **𝗠𝗥_𝗫𝟰𝟱 𝗥𝗢𝗬𝗔𝗟 𝗗𝗢𝗖𝗨𝗠𝗘𝗡𝗧** 📄 ❯━━━►\n"
+                    f"┃\n"
+                    f"┣━━◈ **𝗜𝗗:** `{str(count).zfill(3)}` \n"
+                    f"┣━━◈ **𝗧𝗜𝗧𝗟𝗘:** **{name1}**\n"
+                    f"┣━━◈ **𝗕𝗔𝗧𝗖𝗛:** **{b_name}** 📑\n"
+                    f"┃\n"
+                    f"┣━━❖ **𝗘𝗫𝗧𝗥𝗔𝗖𝗧𝗘𝗗 𝗕𝗬:** **{CR}**\n"
+                    f"┃\n"
+                    f"╰━━━╭⚜️ **𝗣𝗢𝗪𝗘𝗥𝗘𝗗 𝗕𝗬 𝗠𝗥_𝗫𝟰𝟱** ⚜️╯━━━►"
+                )
                     
                 
                 if "drive" in url:
@@ -513,7 +550,14 @@ async def txt_handler(bot: Client, m: Message):
 
 @bot.on_message(filters.command(["Official"]) )
 async def txt_handler(bot: Client, m: Message):
-    editable = await m.reply_text(f"**🔹Hi I am Poweful Lovely TXT Downloader📥 Bot.**\n🔹**Send me the TXT file and Just wait and Watch🥂.**")
+    editable = await m.reply_text(
+        f"╭───❮ **MR_X45 TXT LEECHER** ❯───►\n"
+        f"│\n"
+        f"├──» **SEND ME THE TXT FILE TO BEGIN** 📥\n"
+        f"├──» **JUST WAIT AND WATCH THE MAGIC** ⚡\n"
+        f"│\n"
+        f"╰───╭⚡ **POWERED BY MR_X45** ⚡╯───►"
+    )
     input: Message = await bot.listen(editable.chat.id)
     x = await input.download()
     await input.delete(True)
@@ -533,7 +577,7 @@ async def txt_handler(bot: Client, m: Message):
         os.remove(x)
         return
    
-    await editable.edit(f"Total links found are **{len(links)}**\n\nSend From where you want to download🧐 initial is **1**")
+  await editable.edit(f"╭───❮ **TOTAL LINKS FOUND:** `{len(links)}` ❯───►\n├──» **ENTER START INDEX:** *(DEFAULT IS 1)* 🔢\n╰───╭⚡ **[ Mr_X45 Studio ]** ⚡╯───►")
     input0: Message = await bot.listen(editable.chat.id)
     raw_text = input0.text
     await input0.delete(True)
@@ -541,7 +585,7 @@ async def txt_handler(bot: Client, m: Message):
         arg = int(raw_text)
     except:
         arg = 1
-    await editable.edit("**Enter Your 𝗕𝗮𝘁𝗰𝗵 Name or send '/Rahul' for extracting Name from your text filename😚.**")
+   await editable.edit(f"**ENTER YOUR BATCH NAME OR SEND** `/Rahul` **FOR EXTRACTING NAME FROM TEXT FILENAME.**")
     input1: Message = await bot.listen(editable.chat.id)
     raw_text0 = input1.text
     await input1.delete(True)
@@ -550,7 +594,16 @@ async def txt_handler(bot: Client, m: Message):
     else:
         b_name = raw_text0
 
-    await editable.edit("**Enter resolution.**\n Eg : 144, 240, 360, **480**, 720 or 1080😄.")
+   await editable.edit(
+        f"╭───❮ **SELECT RESOLUTION** ❯───►\n"
+        f"├──» **144**\n"
+        f"├──» **240**\n"
+        f"├──» **360**\n"
+        f"├──» **480**\n"
+        f"├──» **720**\n"
+        f"├──» **1080**\n"
+        f"╰───╭⚡ **[ Mr_X45 ]** ⚡╯───►"
+    )
     input2: Message = await bot.listen(editable.chat.id)
     raw_text2 = input2.text
     await input2.delete(True)
@@ -572,7 +625,7 @@ async def txt_handler(bot: Client, m: Message):
     except Exception:
             res = "UN"
     
-    await editable.edit("**Enter Your 𝙉𝙖𝙢𝙚 or send '/Official'for use default🥂.**\n**For an Example**:\n @Rahul_Official_X45")
+   await editable.edit(f"╭───❮ **CREDITS SETUP** ❯───►\n├──» **ENTER UPLOADER NAME OR SEND** `/Rahul` **FOR DEFAULT** 🎓\n╰───╭⚡ **[ @rahulx45_vibe ]** ⚡╯───►")
     input3: Message = await bot.listen(editable.chat.id)
     raw_text3 = input3.text
     await input3.delete(True)
@@ -581,7 +634,7 @@ async def txt_handler(bot: Client, m: Message):
     else:
         CR = raw_text3
         
-    await editable.edit("**Enter Your PW 𝗧𝗼𝗸𝗲𝗻 For 𝐌𝐏𝐃 𝐔𝐑𝐋 or send '/vip' for use default**")
+    await editable.edit(f"╭───❮ **PW TOKEN SETUP** ❯───►\n├──» **ENTER PW TOKEN OR SEND** `/X45` **FOR DEFAULT** 🔑\n╰───╭⚡ **[ Mr_X45 Studio ]** ⚡╯───►")
     input4: Message = await bot.listen(editable.chat.id)
     raw_text4 = input4.text
     await input4.delete(True)
@@ -590,7 +643,7 @@ async def txt_handler(bot: Client, m: Message):
     else:
         access_token = raw_text4
         
-    await editable.edit("Now send the **Thumb url**\n**Eg Who's End With .jpg:** ``\n\nor Send `no`")
+   await editable.edit(f"╭───❮ **THUMBNAIL SETUP** ❯───►\n├──» **SEND THUMBNAIL URL** (Ending with .jpg) **OR SEND** `no` 🖼️\n╰───╭⚡ **[ Mr_X45 Studio ]** ⚡╯───►")
     input6 = message = await bot.listen(editable.chat.id)
     raw_text6 = input6.text
     await input6.delete(True)
@@ -663,8 +716,29 @@ async def txt_handler(bot: Client, m: Message):
 
             try:  
         
-                cc = f'**📹 VID_ID: {str(count).zfill(3)}.\n\n📒 Title: {name1} {res}.mkv\n\n<pre><code>📚 Batch Name: {b_name}</code></pre>\n\n📥 Extracted By𓆩♛𓆪 : \n{CR}\n\n**𒆜━━⊱『𝐌𝐫_𝐗𝟒𝟓』⊰━━𒆜 **'
-                cc1 = f'**🗃️ PDF_ID: {str(count).zfill(3)}.\n\n📒 Title: {name1} .pdf\n\n<pre><code>📚 Batch Name: {b_name}</code></pre>\n\n📥 Extracted By𓆩♛𓆪 : \n{CR}\n\n**∘𒆜━━⊱『𝐌𝐫_𝐗𝟒𝟓』⊰━━𒆜∘**'
+                cc = (
+                    f"╭━━━❮ 👑 **𝗠𝗥_𝗫𝟰𝟱 𝗥𝗢𝗬𝗔𝗟 𝗟𝗘𝗖𝗧𝗨𝗥𝗘** 👑 ❯━━━►\n"
+                    f"┃\n"
+                    f"┣━━◈ **𝗜𝗗:** `{str(count).zfill(3)}` \n"
+                    f"┣━━◈ **𝗧𝗜𝗧𝗟𝗘:** **{name1}**\n"
+                    f"┣━━◈ **𝗤𝗨𝗔𝗟𝗜𝗧𝗬:** **{raw_text2}p HD** 🎬\n"
+                    f"┣━━◈ **𝗕𝗔𝗧𝗖𝗛:** **{b_name}** 📚\n"
+                    f"┃\n"
+                    f"┣━━❖ **𝗘𝗫𝗧𝗥𝗔𝗖𝗧𝗘𝗗 𝗕𝗬:** **{CR}**\n"
+                    f"┃\n"
+                    f"╰━━━╭⚜️ **𝗣𝗢𝗪𝗘𝗥𝗘𝗗 𝗕𝗬 𝗠𝗥_𝗫𝟰𝟱** ⚜️╯━━━►"
+                )
+                cc1 = (
+                    f"╭━━━❮ 📄 **𝗠𝗥_𝗫𝟰𝟱 𝗥𝗢𝗬𝗔𝗟 𝗗𝗢𝗖𝗨𝗠𝗘𝗡𝗧** 📄 ❯━━━►\n"
+                    f"┃\n"
+                    f"┣━━◈ **𝗜𝗗:** `{str(count).zfill(3)}` \n"
+                    f"┣━━◈ **𝗧𝗜𝗧𝗟𝗘:** **{name1}**\n"
+                    f"┣━━◈ **𝗕𝗔𝗧𝗖𝗛:** **{b_name}** 📑\n"
+                    f"┃\n"
+                    f"┣━━❖ **𝗘𝗫𝗧𝗥𝗔𝗖𝗧𝗘𝗗 𝗕𝗬:** **{CR}**\n"
+                    f"┃\n"
+                    f"╰━━━╭⚜️ **𝗣𝗢𝗪𝗘𝗥𝗘𝗗 𝗕𝗬 𝗠𝗥_𝗫𝟰𝟱** ⚜️╯━━━►"
+                )
                     
                 
                 if "drive" in url:
