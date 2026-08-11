@@ -292,7 +292,7 @@ async def txt_handler(bot: Client, m: Message):
         os.remove(x)
         return
    
-   await editable.edit(f"╭───❮ **TOTAL LINKS FOUND:** `{len(links)}` ❯───►\n├──» **ENTER START INDEX:** *(DEFAULT IS 1)* 🔢\n╰───╭⚡ **[ Mr_X45 Studio ]** ⚡╯───►")
+    await editable.edit(f"╭───❮ **TOTAL LINKS FOUND:** `{len(links)}` ❯───►\n├──» **ENTER START INDEX:** *(DEFAULT IS 1)* 🔢\n╰───╭⚡ **[ Mr_X45 Studio ]** ⚡╯───►")
     input0: Message = await bot.listen(editable.chat.id)
     raw_text = input0.text
     await input0.delete(True)
@@ -300,7 +300,7 @@ async def txt_handler(bot: Client, m: Message):
         arg = int(raw_text)
     except:
         arg = 1
-  await editable.edit(f"**ENTER YOUR BATCH NAME OR SEND** `/Rahul` **FOR EXTRACTING NAME FROM TEXT FILENAME.**")
+    await editable.edit(f"**ENTER YOUR BATCH NAME OR SEND** `/Rahul` **FOR EXTRACTING NAME FROM TEXT FILENAME.**")
     input1: Message = await bot.listen(editable.chat.id)
     raw_text0 = input1.text
     await input1.delete(True)
@@ -309,7 +309,7 @@ async def txt_handler(bot: Client, m: Message):
     else:
         b_name = raw_text0
 
-   await editable.edit(
+    await editable.edit(
         f"╭───❮ **SELECT RESOLUTION** ❯───►\n"
         f"├──» **144**\n"
         f"├──» **240**\n"
@@ -340,7 +340,7 @@ async def txt_handler(bot: Client, m: Message):
     except Exception:
             res = "UN"
     
-   await editable.edit(f"╭───❮ **CREDITS SETUP** ❯───►\n├──» **ENTER UPLOADER NAME OR SEND** `/Rahul` **FOR DEFAULT** 🎓\n╰───╭⚡ **[ @rahulx45_vibe ]** ⚡╯───►")
+    await editable.edit(f"╭───❮ **CREDITS SETUP** ❯───►\n├──» **ENTER UPLOADER NAME OR SEND** `/Rahul` **FOR DEFAULT** 🎓\n╰───╭⚡ **[ @rahulx45_vibe ]** ⚡╯───►")
     input3: Message = await bot.listen(editable.chat.id)
     raw_text3 = input3.text
     await input3.delete(True)
@@ -577,7 +577,7 @@ async def txt_handler(bot: Client, m: Message):
         os.remove(x)
         return
    
-  await editable.edit(f"╭───❮ **TOTAL LINKS FOUND:** `{len(links)}` ❯───►\n├──» **ENTER START INDEX:** *(DEFAULT IS 1)* 🔢\n╰───╭⚡ **[ Mr_X45 Studio ]** ⚡╯───►")
+    await editable.edit(f"╭───❮ **TOTAL LINKS FOUND:** `{len(links)}` ❯───►\n├──» **ENTER START INDEX:** *(DEFAULT IS 1)* 🔢\n╰───╭⚡ **[ Mr_X45 Studio ]** ⚡╯───►")
     input0: Message = await bot.listen(editable.chat.id)
     raw_text = input0.text
     await input0.delete(True)
@@ -585,7 +585,7 @@ async def txt_handler(bot: Client, m: Message):
         arg = int(raw_text)
     except:
         arg = 1
-   await editable.edit(f"**ENTER YOUR BATCH NAME OR SEND** `/Rahul` **FOR EXTRACTING NAME FROM TEXT FILENAME.**")
+    await editable.edit(f"**ENTER YOUR BATCH NAME OR SEND** `/Rahul` **FOR EXTRACTING NAME FROM TEXT FILENAME.**")
     input1: Message = await bot.listen(editable.chat.id)
     raw_text0 = input1.text
     await input1.delete(True)
@@ -594,7 +594,7 @@ async def txt_handler(bot: Client, m: Message):
     else:
         b_name = raw_text0
 
-   await editable.edit(
+    await editable.edit(
         f"╭───❮ **SELECT RESOLUTION** ❯───►\n"
         f"├──» **144**\n"
         f"├──» **240**\n"
@@ -625,7 +625,7 @@ async def txt_handler(bot: Client, m: Message):
     except Exception:
             res = "UN"
     
-   await editable.edit(f"╭───❮ **CREDITS SETUP** ❯───►\n├──» **ENTER UPLOADER NAME OR SEND** `/Rahul` **FOR DEFAULT** 🎓\n╰───╭⚡ **[ @rahulx45_vibe ]** ⚡╯───►")
+    await editable.edit(f"╭───❮ **CREDITS SETUP** ❯───►\n├──» **ENTER UPLOADER NAME OR SEND** `/Rahul` **FOR DEFAULT** 🎓\n╰───╭⚡ **[ @rahulx45_vibe ]** ⚡╯───►")
     input3: Message = await bot.listen(editable.chat.id)
     raw_text3 = input3.text
     await input3.delete(True)
@@ -643,7 +643,7 @@ async def txt_handler(bot: Client, m: Message):
     else:
         access_token = raw_text4
         
-   await editable.edit(f"╭───❮ **THUMBNAIL SETUP** ❯───►\n├──» **SEND THUMBNAIL URL** (Ending with .jpg) **OR SEND** `no` 🖼️\n╰───╭⚡ **[ Mr_X45 Studio ]** ⚡╯───►")
+    await editable.edit(f"╭───❮ **THUMBNAIL SETUP** ❯───►\n├──» **SEND THUMBNAIL URL** (Ending with .jpg) **OR SEND** `no` 🖼️\n╰───╭⚡ **[ Mr_X45 Studio ]** ⚡╯───►")
     input6 = message = await bot.listen(editable.chat.id)
     raw_text6 = input6.text
     await input6.delete(True)
