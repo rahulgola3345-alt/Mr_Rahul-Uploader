@@ -215,44 +215,49 @@ class Data:
 # Define the start command handler
 @bot.on_message(filters.command("start"))
 async def start(client: Client, msg: Message):
-    user = await client.get_me()
-    mention = user.mention
+    if msg.from_user:
+        tgname = msg.from_user.mention
+    elif msg.chat.type == ChatType.CHANNEL:
+        tgname = msg.chat.title or "None"
+    else:
+        tgname = "None"
+        
     start_message = await client.send_message(
         msg.chat.id,
-        Data.START.format(msg.from_user.mention)
+        Data.START.format(tgname)
     )
 
     await asyncio.sleep(1)
     await start_message.edit_text(
-        Data.START.format(msg.from_user.mention) +
+        Data.START.format(tgname) +
         "Initializing Uploader bot...😚🤖\n\n"
         "Progress: [⬜⬜⬜⬜⬜⬜⬜⬜⬜] 0%\n\n"
     )
 
     await asyncio.sleep(1)
     await start_message.edit_text(
-        Data.START.format(msg.from_user.mention) +
+        Data.START.format(tgname) +
         "Loading features...😗⏳\n\n"
         "Progress: [🟥🟥🟥⬜⬜⬜⬜⬜⬜] 25%\n\n"
     )
     
     await asyncio.sleep(1)
     await start_message.edit_text(
-        Data.START.format(msg.from_user.mention) +
+        Data.START.format(tgname) +
         "This may take a moment, sit back and relax!🫣💪\n\n"
         "Progress: [🟧🟧🟧🟧🟧⬜⬜⬜⬜] 50%\n\n"
     )
 
     await asyncio.sleep(1)
     await start_message.edit_text(
-        Data.START.format(msg.from_user.mention) +
+        Data.START.format(tgname) +
         "Checking Bot Status...😙🔍\n\n"
         "Progress: [🟨🟨🟨🟨🟨🟨🟨⬜⬜] 75%\n\n"
     )
 
     await asyncio.sleep(1)
     await start_message.edit_text(
-        Data.START.format(msg.from_user.mention) +
+        Data.START.format(tgname) +
         "Checking status Okay... Command is Private Dear🫂.**Bot Made BY @rahulx45_vibe**🔍\n\n"
         "Progress:[🟩🟩🟩🟩🟩🟩🟩🟩🟩] 100%\n\n"
     )
