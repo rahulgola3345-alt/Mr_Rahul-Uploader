@@ -207,8 +207,42 @@ async def main():
         while True:
             await asyncio.sleep(3600)  # Run forever, or until interrupted
     except (KeyboardInterrupt, SystemExit):
+ 
         await stop_bot()
-        
+
+
+def new_classplus_cdn(url, raw_text2, output_filename):
+    format_selector = (
+        f"bestvideo[height<={raw_text2}]"
+        f"+bestaudio/best[height<={raw_text2}]"
+    )
+
+    cmd = [
+        "yt-dlp",
+        "--newline",
+        "-f", format_selector,
+        "--merge-output-format", "mp4",
+        "--remux-video", "mp4",
+        "--concurrent-fragments", "8",
+        "--downloader", "aria2c",
+        "--downloader-args",
+        "aria2c:-x16 -s16 -k1M -j16 --file-allocation=none",
+
+        "--add-header",
+        "Origin: https://web.classplusapp.com",
+
+        "--add-header",
+        "Referer: https://web.classplusapp.com/",
+
+        "-o",
+        output_filename,
+        url,
+    ]
+
+    subprocess.run(cmd, check=True)
+
+    return output_filename
+    
 class Data:
     START = (
         "🌟 Welcome Dear🧸😘 {0}! 🌟\n\n"
@@ -510,6 +544,18 @@ async def txt_handler(bot: Client, m: Message):
                     count += 1
                     time.sleep(e.x)
                     continue
+
+                elif 'akamai-cdn.classplusapp.com' in url:
+                    Show = f"**```ClassPlus```**\n\n✰🖥️𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀»\n\n📝 Title:- `{name}\n\n🖥️ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe"
+                    prog = await m.reply_text(Show)
+                    output_filename = f"{name}.mp4"
+                    res_file = new_classplus_cdn(url, raw_text2, output_filename)
+                    filename = res_file
+                    await prog.delete(True)
+                    await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
+                    count += 1
+                    time.sleep(e.x)
+                    continue
                     
                 else:
                     Show = f"✰🖥️ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀 »\n\n📝 Title:- `{name}\n\n📹 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @Rahul_Official_X45 ❖"
@@ -767,6 +813,18 @@ async def txt_handler(bot: Client, m: Message):
                     prog = await m.reply_text(Show)
                     output_filename = f"{name}.mp4"
                     res_file = pwdlx_video(url, output_filename)
+                    filename = res_file
+                    await prog.delete(True)
+                    await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
+                    count += 1
+                    time.sleep(e.x)
+                    continue
+                    
+                elif 'akamai-cdn.classplusapp.com' in url:
+                    Show = f"**```ClassPlus```**\n\n✰🖥️𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀»\n\n📝 Title:- `{name}\n\n🖥️ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe"
+                    prog = await m.reply_text(Show)
+                    output_filename = f"{name}.mp4"
+                    res_file = new_classplus_cdn(url, raw_text2, output_filename)
                     filename = res_file
                     await prog.delete(True)
                     await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
