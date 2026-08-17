@@ -532,27 +532,31 @@ async def txt_handler(bot: Client, m: Message):
                     except FloodWait as e:
                         await m.reply_text(str(e))
                         time.sleep(e.x)
-                        continue                       
-
-                elif any(img in url.lower() for img in ['.jpeg', '.png', '.jpg']):
-                        try:
-                            subprocess.run(['wget', url, '-O', f'{name}.jpg'], check=True)  # Fixing this line
-                            await bot.send_photo(
-                                chat_id=m.chat.id,
-                                caption = ccimg,
-                                photo= f'{name}.jpg',  )
+                        continue
+                        
+                elif any(ext in url.lower() for ext in [".jpg", ".jpeg", ".png"]):
+                    try:
+                        await asyncio.sleep(4)
+                        url = url.replace(" ", "%20")
+                        scraper = cloudscraper.create_scraper()
+                        response = scraper.get(url)
+                        if response.status_code == 200:
+                            with open(f'{name}.jpg', 'wb') as file:
+                                file.write(response.content)
+                            await asyncio.sleep(2)
+                            copy = await bot.send_photo(chat_id=m.chat.id, photo=f'{name}.jpg', caption=ccimg)
                             count += 1
-                            await asyncio.sleep(1)
-                            continue
-                        except subprocess.CalledProcessError:
-                            await message.reply("Failed to download the image. Please check the URL.")
-                        except Exception as e:
-                            await message.reply(f"An error occurred: {e}")
-                        finally:
-                            # Clean up the downloaded file
-                            if os.path.exists(f'{name}.jpg'):
-                                os.remove(f'{name}.jpg'
-                    
+                            os.remove(f'{name}.jpg')
+                        else:
+                            await m.reply_text(f"Failed to download Image: {response.status_code} {response.reason}")
+                    except FloodWait as e:
+                        await m.reply_text(str(e))
+                        await asyncio.sleep(2)
+                        return
+                    except Exception as e:
+                        await m.reply_text(f"An error occurred: {str(e)}")
+                        await asyncio.sleep(4)
+                        
                 elif '/master.mpd' in url or "/dash/" in url or ".mp4?" in url or "?Signature=" in url or "d1d34p8vz63oiq.cloudfront.net" in url or "parentId=" in url or "childId=" in url:
                     Show = f"**Physics Wallah**\n\n✰🖥️𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀»\n\n📝 Title:- `{name}\n\n🖥️ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe"
                     prog = await m.reply_text(Show)
