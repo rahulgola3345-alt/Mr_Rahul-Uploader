@@ -846,7 +846,7 @@ async def txt_handler(bot: Client, m: Message):
                         finally:
                             # Clean up the downloaded file
                             if os.path.exists(f'{name}.jpg'):
-                                os.remove(f'{name}.jpg'
+                                os.remove(f'{name}.jpg')
 
                 
                 elif '/master.mpd' in url or "/dash/" in url or ".mp4?" in url or "?Signature=" in url or "d1d34p8vz63oiq.cloudfront.net" in url or "parentId=" in url or "childId=" in url:
