@@ -472,6 +472,7 @@ async def txt_handler(bot: Client, m: Message):
             try:
                 cc = f"╭━━━❮ 👑 **𝗠𝗥_𝗫𝟰𝟱 𝗥𝗢𝗬𝗔𝗟 𝗟𝗘𝗖𝗧𝗨𝗥𝗘** 👑 ❯━━━►\n┃\n┣━━◈ **𝗜𝗗:** `{str(count).zfill(3)}` \n┣━━◈ **𝗧𝗜𝗧𝗟𝗘:** **{name1}**\n┣━━◈ **𝗤𝗨𝗔𝗟𝗜𝗧𝗬:** **{raw_text2}p HD** 🎬\n┣━━◈ **𝗕𝗔𝗧𝗖𝗛:** **{b_name}** 📚\n┃\n┣━━❖ **𝗘𝗫𝗧𝗥𝗔𝗖𝗧𝗘𝗗 𝗕𝗬:** **{CR}**\n┃\n╰━━━╭⚜️ **𝗣𝗢𝗪𝗘𝗥𝗘𝗗 𝗕𝗬 𝗠𝗥_𝗫𝟰𝟱** ⚜️╯━━━►"
                 cc1 = f"╭━━━❮ 📄 **𝗠𝗥_𝗫𝟰𝟱 𝗥𝗢𝗬𝗔𝗟 𝗗𝗢𝗖𝗨𝗠𝗘𝗡𝗧** 📄 ❯━━━►\n┃\n┣━━◈ **𝗜𝗗:** `{str(count).zfill(3)}` \n┣━━◈ **𝗧𝗜𝗧𝗟𝗘:** **{name1}**\n┣━━◈ **𝗕𝗔𝗧𝗖𝗛:** **{b_name}** 📑\n┃\n┣━━❖ **𝗘𝗫𝗧𝗥𝗔𝗖𝗧𝗘𝗗 𝗕𝗬:** **{CR}**\n┃\n╰━━━╭⚜️ **𝗣𝗢𝗪𝗘𝗥𝗘𝗗 𝗕𝗬 𝗠𝗥_𝗫𝟰𝟱** ⚜️╯━━━►"
+                ccimg = f"╭━━━❮ 📄 **𝗠𝗥_𝗫𝟰𝟱 𝗥𝗢𝗬𝗔𝗟 𝗗𝗢𝗖𝗨𝗠𝗘𝗡𝗧** 📄 ❯━━━►\n┃\n┣━━◈ **𝗜𝗗:** `{str(count).zfill(3)}` \n┣━━◈ **𝗧𝗜𝗧𝗟𝗘:** **{name1}**\n┣━━◈ **𝗕𝗔𝗧𝗖𝗛:** **{b_name}** 📑\n┃\n┣━━❖ **𝗘𝗫𝗧𝗥𝗔𝗖𝗧𝗘𝗗 𝗕𝗬:** **{CR}**\n┃\n╰━━━╭⚜️ **𝗣𝗢𝗪𝗘𝗥𝗘𝗗 𝗕𝗬 𝗠𝗥_𝗫𝟰𝟱** ⚜️╯━━━►"
     
                     
                 
@@ -533,6 +534,25 @@ async def txt_handler(bot: Client, m: Message):
                         time.sleep(e.x)
                         continue                       
 
+                elif any(img in url.lower() for img in ['.jpeg', '.png', '.jpg']):
+                        try:
+                            subprocess.run(['wget', url, '-O', f'{name}.jpg'], check=True)  # Fixing this line
+                            await bot.send_photo(
+                                chat_id=m.chat.id,
+                                caption = ccimg,
+                                photo= f'{name}.jpg',  )
+                            count += 1
+                            await asyncio.sleep(1)
+                            continue
+                        except subprocess.CalledProcessError:
+                            await message.reply("Failed to download the image. Please check the URL.")
+                        except Exception as e:
+                            await message.reply(f"An error occurred: {e}")
+                        finally:
+                            # Clean up the downloaded file
+                            if os.path.exists(f'{name}.jpg'):
+                                os.remove(f'{name}.jpg'
+                    
                 elif '/master.mpd' in url or "/dash/" in url or ".mp4?" in url or "?Signature=" in url or "d1d34p8vz63oiq.cloudfront.net" in url or "parentId=" in url or "childId=" in url:
                     Show = f"**Physics Wallah**\n\n✰🖥️𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀»\n\n📝 Title:- `{name}\n\n🖥️ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe"
                     prog = await m.reply_text(Show)
@@ -748,7 +768,8 @@ async def txt_handler(bot: Client, m: Message):
             try:
                 cc = f"╭━━━❮ 👑 **𝗠𝗥_𝗫𝟰𝟱 𝗥𝗢𝗬𝗔𝗟 𝗟𝗘𝗖𝗧𝗨𝗥𝗘** 👑 ❯━━━►\n┃\n┣━━◈ **𝗜𝗗:** `{str(count).zfill(3)}` \n┣━━◈ **𝗧𝗜𝗧𝗟𝗘:** **{name1}**\n┣━━◈ **𝗤𝗨𝗔𝗟𝗜𝗧𝗬:** **{raw_text2}p HD** 🎬\n┣━━◈ **𝗕𝗔𝗧𝗖𝗛:** **{b_name}** 📚\n┃\n┣━━❖ **𝗘𝗫𝗧𝗥𝗔𝗖𝗧𝗘𝗗 𝗕𝗬:** **{CR}**\n┃\n╰━━━╭⚜️ **𝗣𝗢𝗪𝗘𝗥𝗘𝗗 𝗕𝗬 𝗠𝗥_𝗫𝟰𝟱** ⚜️╯━━━►"
                 cc1 = f"╭━━━❮ 📄 **𝗠𝗥_𝗫𝟰𝟱 𝗥𝗢𝗬𝗔𝗟 𝗗𝗢𝗖𝗨𝗠𝗘𝗡𝗧** 📄 ❯━━━►\n┃\n┣━━◈ **𝗜𝗗:** `{str(count).zfill(3)}` \n┣━━◈ **𝗧𝗜𝗧𝗟𝗘:** **{name1}**\n┣━━◈ **𝗕𝗔𝗧𝗖𝗛:** **{b_name}** 📑\n┃\n┣━━❖ **𝗘𝗫𝗧𝗥𝗔𝗖𝗧𝗘𝗗 𝗕𝗬:** **{CR}**\n┃\n╰━━━╭⚜️ **𝗣𝗢𝗪𝗘𝗥𝗘𝗗 𝗕𝗬 𝗠𝗥_𝗫𝟰𝟱** ⚜️╯━━━►"
-                    
+                ccimg = f"╭━━━❮ 📄 **𝗠𝗥_𝗫𝟰𝟱 𝗥𝗢𝗬𝗔𝗟 𝗗𝗢𝗖𝗨𝗠𝗘𝗡𝗧** 📄 ❯━━━►\n┃\n┣━━◈ **𝗜𝗗:** `{str(count).zfill(3)}` \n┣━━◈ **𝗧𝗜𝗧𝗟𝗘:** **{name1}**\n┣━━◈ **𝗕𝗔𝗧𝗖𝗛:** **{b_name}** 📑\n┃\n┣━━❖ **𝗘𝗫𝗧𝗥𝗔𝗖𝗧𝗘𝗗 𝗕𝗬:** **{CR}**\n┃\n╰━━━╭⚜️ **𝗣𝗢𝗪𝗘𝗥𝗘𝗗 𝗕𝗬 𝗠𝗥_𝗫𝟰𝟱** ⚜️╯━━━►"
+     
                 
                 if "drive" in url:
                     try:
@@ -807,7 +828,27 @@ async def txt_handler(bot: Client, m: Message):
                         await m.reply_text(str(e))
                         time.sleep(e.x)
                         continue
-                        
+
+                elif any(img in url.lower() for img in ['.jpeg', '.png', '.jpg']):
+                        try:
+                            subprocess.run(['wget', url, '-O', f'{name}.jpg'], check=True)  # Fixing this line
+                            await bot.send_photo(
+                                chat_id=m.chat.id,
+                                caption = ccimg,
+                                photo= f'{name}.jpg',  )
+                            count += 1
+                            await asyncio.sleep(1)
+                            continue
+                        except subprocess.CalledProcessError:
+                            await message.reply("Failed to download the image. Please check the URL.")
+                        except Exception as e:
+                            await message.reply(f"An error occurred: {e}")
+                        finally:
+                            # Clean up the downloaded file
+                            if os.path.exists(f'{name}.jpg'):
+                                os.remove(f'{name}.jpg'
+
+                
                 elif '/master.mpd' in url or "/dash/" in url or ".mp4?" in url or "?Signature=" in url or "d1d34p8vz63oiq.cloudfront.net" in url or "parentId=" in url or "childId=" in url:
                     Show = f"**Physics Wallah**\n\n✰🖥️𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀»\n\n📝 Title:- `{name}\n\n🖥️ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe"
                     prog = await m.reply_text(Show)
