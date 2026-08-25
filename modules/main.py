@@ -514,13 +514,13 @@ async def txt_handler(bot: Client, m: Message):
                 cmd = f'yt-dlp -f "{ytf}" "{url}" -o "{name}.mp4"'
 
     
-           cc = f"◆ 𝑷𝑹𝑬𝑴𝑰𝑼𝑴 𝑽𝑰𝑫𝑬𝑶 𝑳𝑬𝑪𝑻𝑼𝑹𝑬 ◆\n|\n|-◆ TITLE -> 〖 {name1} 〗 🎬⚡\n|\n|-◆ BATCH -> 〖 {b_name} 〗 🚨\n|\n|-◆ EXTRACTED BY -> {CR} 🔴\n|\n\\_________________________\n\n═══════「 Mrx45 」═══════"
-           cc1 = f"📁 𝑶𝑭𝑭𝑰𝑪𝑰𝑨𝑳 𝑪𝑳𝑨𝑺𝑺 𝑵𝑶𝑻𝑬𝑺 📁\n|\n|-◆ TITLE -> 〖 {name1} 〗 📚✨\n|\n|-◆ BATCH -> 〖 {b_name} 〗 🍁\n|\n|-◆ EXTRACTED BY -> {CR} 🌸\n|\n\\_________________________\n\n═══════「 Mrx45 」═══════"
-           ccimg = f"🖼 𝑶𝑭𝑭𝑰𝑪𝑰𝑨𝑳 𝑰𝑴𝑨𝑮𝑬 𝑵𝑶𝑻𝑬𝑺 🖼\n|\n|-◆ TITLE -> 〖 {name1} 〗 🖼✨\n|\n|-◆ BATCH -> 〖 {b_name} 〗 🍁\n|\n|-◆ EXTRACTED BY -> {CR} 🌸\n|\n\\_________________________\n\n═══════「 Mrx45 」═══════"
+            cc = f"◆ 𝑷𝑹𝑬𝑴𝑰𝑼𝑴 𝑽𝑰𝑫𝑬𝑶 𝑳𝑬𝑪𝑻𝑼𝑹𝑬 ◆\n|\n|-◆ TITLE -> 〖 {name1} 〗 🎬⚡\n|\n|-◆ BATCH -> 〖 {b_name} 〗 🚨\n|\n|-◆ EXTRACTED BY -> {CR} 🔴\n|\n\\_________________________\n\n═══════「 Mrx45 」═══════"
+            cc1 = f"📁 𝑶𝑭𝑭𝑰𝑪𝑰𝑨𝑳 𝑪𝑳𝑨𝑺𝑺 𝑵𝑶𝑻𝑬𝑺 📁\n|\n|-◆ TITLE -> 〖 {name1} 〗 📚✨\n|\n|-◆ BATCH -> 〖 {b_name} 〗 🍁\n|\n|-◆ EXTRACTED BY -> {CR} 🌸\n|\n\\_________________________\n\n═══════「 Mrx45 」═══════"
+            ccimg = f"🖼 𝑶𝑭𝑭𝑰𝑪𝑰𝑨𝑳 𝑰𝑴𝑨𝑮𝑬 𝑵𝑶𝑻𝑬𝑺 🖼\n|\n|-◆ TITLE -> 〖 {name1} 〗 🖼✨\n|\n|-◆ BATCH -> 〖 {b_name} 〗 🍁\n|\n|-◆ EXTRACTED BY -> {CR} 🌸\n|\n\\_________________________\n\n═══════「 Mrx45 」═══════"
     
                     
                 
-           if "drive" in url:
+            if "drive" in url:
                     try:
                         ka = await helper.download(url, name)
                         copy = await bot.send_document(chat_id=m.chat.id,document=ka, caption=cc1)
