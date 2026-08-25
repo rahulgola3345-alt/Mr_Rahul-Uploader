@@ -552,7 +552,6 @@ async def txt_handler(bot: Client, m: Message):
                     res_file = await helper.download_video(url, cmd, name)
                     filename = res_file
                     await prog.delete(True)
-                    await emoji_message.delete()
                     await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
                     count += 1
                     await asyncio.sleep(1)
@@ -565,6 +564,7 @@ async def txt_handler(bot: Client, m: Message):
                 )
                 count += 1
                 continue
+
     except Exception as e:
         await m.reply_text(f"❌ Error: `{e}`")
 
@@ -572,7 +572,6 @@ async def txt_handler(bot: Client, m: Message):
         "𝙀𝙑𝙀𝙍𝙔𝙏𝙃𝙄𝙉𝙂 𝙄𝙎 𝘿𝙊𝙉𝙀 𝘿𝙊𝙉𝙀\n\n"
         "** 𝐍𝐎𝐖 𝐆𝐈𝐕𝐄 𝐘𝐎𝐔𝐑 𝐔𝐍𝐋𝐈𝐌𝐈𝐓𝐄𝐃 𝐑𝐄𝐀𝐂𝐓𝐈𝐎𝐍𝐒 ✅**"
     )
-# Advance
 
 @bot.on_message(filters.command(["Official"]) )
 async def txt_handler(bot: Client, m: Message):
