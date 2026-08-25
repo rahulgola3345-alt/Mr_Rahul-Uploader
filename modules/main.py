@@ -532,7 +532,7 @@ async def txt_handler(bot: Client, m: Message):
                     time.sleep(e.x)
                     continue
 
-        elif ".pdf" in url:
+            elif ".pdf" in url:
                     try:
                         await asyncio.sleep(4)
         # Replace spaces with %20 in the URL
@@ -565,7 +565,7 @@ async def txt_handler(bot: Client, m: Message):
                         time.sleep(e.x)
                         continue
 
-        elif ".pdf" in url:
+            elif ".pdf" in url:
                     try:
                         cmd = f'yt-dlp -o "{name}.pdf" "{url}"'
                         download_cmd = f"{cmd} -R 25 --fragment-retries 25"
@@ -578,7 +578,7 @@ async def txt_handler(bot: Client, m: Message):
                         time.sleep(e.x)
                         continue
                         
-        elif any(ext in url.lower() for ext in [".jpg", ".jpeg", ".png"]):
+            elif any(ext in url.lower() for ext in [".jpg", ".jpeg", ".png"]):
                     try:
                         await asyncio.sleep(4)
                         url = url.replace(" ", "%20")
@@ -601,7 +601,7 @@ async def txt_handler(bot: Client, m: Message):
                         await m.reply_text(f"An error occurred: {str(e)}")
                         await asyncio.sleep(4)
                         
-        elif '/master.mpd' in url or "/dash/" in url or ".mp4?" in url or "?Signature=" in url or "d1d34p8vz63oiq.cloudfront.net" in url or "parentId=" in url or "childId=" in url:
+            elif '/master.mpd' in url or "/dash/" in url or ".mp4?" in url or "?Signature=" in url or "d1d34p8vz63oiq.cloudfront.net" in url or "parentId=" in url or "childId=" in url:
                     Show = f"**Physics Wallah**\n\n✰🖥️𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀»\n\n📝 Title:- `{name}\n\n🖥️ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe"
                     prog = await m.reply_text(Show)
                     output_filename = f"{name}.mp4"
@@ -613,7 +613,7 @@ async def txt_handler(bot: Client, m: Message):
                     time.sleep(e.x)
                     continue
 
-        elif 'akamai-cdn.classplusapp.com' in url:
+            elif 'akamai-cdn.classplusapp.com' in url:
                     Show = f"**```ClassPlus```**\n\n✰🖥️𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀»\n\n📝 Title:- `{name}\n\n🖥️ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe"
                     prog = await m.reply_text(Show)
                     output_filename = f"{name}.mp4"
