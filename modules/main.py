@@ -926,10 +926,7 @@ async def txt_handler(bot: Client, m: Message):
                     time.sleep(1)
 
            
-
-           except Exception as e:
-               await m.reply_text(e)
-           await m.reply_text("𝙀𝙑𝙀𝙍𝙔𝙏𝙃𝙄𝙉𝙂 𝙄𝙎 𝘿𝙊𝙉𝙀  𝘿𝙊𝙉𝙀 \n\n** 𝐍𝐎𝐖 𝐆𝐈𝐕𝐄 𝐘𝐎𝐔𝐑 𝐔𝐍𝐋𝐈𝐌𝐈𝐓𝐄𝐃 𝐑𝐄𝐀𝐂𝐓𝐈𝐎𝐍𝐒 ✅**")
+            await m.reply_text("𝙀𝙑𝙀𝙍𝙔𝙏𝙃𝙄𝙉𝙂 𝙄𝙎 𝘿𝙊𝙉𝙀  𝘿𝙊𝙉𝙀 \n\n** 𝐍𝐎𝐖 𝐆𝐈𝐕𝐄 𝐘𝐎𝐔𝐑 𝐔𝐍𝐋𝐈𝐌𝐈𝐓𝐄𝐃 𝐑𝐄𝐀𝐂𝐓𝐈𝐎𝐍𝐒 ✅**")
 
 
 
