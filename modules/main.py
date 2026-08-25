@@ -532,7 +532,7 @@ async def txt_handler(bot: Client, m: Message):
                         time.sleep(e.x)
                         continue
 
-                elif ".pdf" in url:
+            elif ".pdf" in url:
                     try:
                         await asyncio.sleep(4)
         # Replace spaces with %20 in the URL
