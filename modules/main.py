@@ -450,55 +450,20 @@ async def txt_handler(bot: Client, m: Message):
             cc = f"📁 **𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 𝐕𝐈𝐃𝐄𝐎 𝐋𝐄𝐂𝐓𝐔𝐑𝐄** 🎬\n|\n|-◆ **𝐓𝐈𝐓𝐋𝐄 ->** 〖 {name1} 〗 🎬⚡\n|\n|-◆ **𝐁𝐀𝐓𝐂𝐇 ->** 〖 {b_name} 〗 🚨\n|\n|-◆ **𝐄𝐗𝐓𝐑𝐀𝐂𝐓𝐄𝐃 𝐁𝐘 ->** {CR} 👑\n|\n\\_________________________\n\n═══『 **𝐌𝐫_𝐗𝟒𝟓** 』═══"
             cc1 = f"📁 **𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 𝐒𝐓𝐔𝐃𝐘 𝐃𝐎𝐂𝐔𝐌𝐄𝐍𝐓** 📚\n|\n|-◆ **𝐓𝐈𝐓𝐋𝐄 ->** 〖 {name1} 〗 📚✨\n|\n|-◆ **𝐁𝐀𝐓𝐂𝐇 ->** 〖 {b_name} 〗 🍁\n|\n|-◆ **𝐄𝐗𝐓𝐑𝐀𝐂𝐓𝐄𝐃 𝐁𝐘 ->** {CR} 🌸\n|\n\\_________________________\n\n═══『 **𝐌𝐫_𝐗𝟒𝟓** 』═══"
             ccimg = f"🖼 **𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 𝐈𝐌𝐀𝐆𝐄 𝐍𝐎𝐓𝐄𝐒** 🖼\n|\n|-◆ **𝐓𝐈𝐓𝐋𝐄 ->** 〖 {name1} 〗 🖼✨\n|\n|-◆ **𝐁𝐀𝐓𝐂𝐇 ->** 〖 {b_name} 〗 🍁\n|\n|-◆ **𝐄𝐗𝐓𝐑𝐀𝐂𝐓𝐄𝐃 𝐁𝐘 ->** {CR} 🌸\n|\n\\_________________________\n\n═══『 **𝐌𝐫_𝐗𝟒𝟓** 』═══"
-        
-                        
-                    
+            
             if "drive" in url:
-                try:
-                    ka = await helper.download(url, name)
-                    copy = await bot.send_document(chat_id=m.chat.id,document=ka, caption=cc1)
-                    count+=1
-                    os.remove(ka)
-                    time.sleep(1)
-                except FloodWait as e:
-                    await m.reply_text(str(e))
-                    time.sleep(e.x)
-                    continue
-
-            elif ".pdf" in url:
                     try:
-                        await asyncio.sleep(4)
-        # Replace spaces with %20 in the URL
-                        url = url.replace(" ", "%20")
- 
-        # Create a cloudscraper session
-                        scraper = cloudscraper.create_scraper()
-
-        # Send a GET request to download the PDF
-                        response = scraper.get(url)
-
-        # Check if the response status is OK
-                        if response.status_code == 200:
-            # Write the PDF content to a file
-                            with open(f'{name}.pdf', 'wb') as file:
-                                file.write(response.content)
-
-            # Send the PDF document
-                            await asyncio.sleep(4)
-                            copy = await bot.send_document(chat_id=m.chat.id, document=f'{name}.pdf', caption=cc1)
-                            count += 1
-
-            # Remove the PDF file after sending
-                            os.remove(f'{name}.pdf')
-                        else:
-                            await m.reply_text(f"Failed to download PDF: {response.status_code} {response.reason}")
-
+                        ka = await helper.download(url, name)
+                        copy = await bot.send_document(chat_id=m.chat.id,document=ka, caption=cc1)
+                        count+=1
+                        os.remove(ka)
+                        time.sleep(1)
                     except FloodWait as e:
                         await m.reply_text(str(e))
                         time.sleep(e.x)
                         continue
-
-            elif ".pdf" in url:
+                        
+                elif ".pdf" in url:
                     try:
                         cmd = f'yt-dlp -o "{name}.pdf" "{url}"'
                         download_cmd = f"{cmd} -R 25 --fragment-retries 25"
@@ -509,9 +474,31 @@ async def txt_handler(bot: Client, m: Message):
                     except FloodWait as e:
                         await m.reply_text(str(e))
                         time.sleep(e.x)
+                        count += 1
                         continue
                         
-            elif any(ext in url.lower() for ext in [".jpg", ".jpeg", ".png"]):
+                elif ".pdf" in url:
+                    try:
+                        await asyncio.sleep(4)
+                        url = url.replace(" ", "%20")
+                        scraper = cloudscraper.create_scraper()
+                        response = scraper.get(url)
+                        if response.status_code == 200:
+                            with open(f'{name}.pdf', 'wb') as file:
+                                file.write(response.content)
+                            await asyncio.sleep(4)
+                            copy = await bot.send_document(chat_id=m.chat.id, document=f'{name}.pdf', caption=cc1)
+                            count += 1
+                            os.remove(f'{name}.pdf')
+                        else:
+                            await m.reply_text(f"Failed to download PDF: {response.status_code} {response.reason}")
+                    except FloodWait as e:
+                        await m.reply_text(str(e))
+                        time.sleep(e.x)
+                        count += 1
+                        continue
+                        
+                elif any(ext in url.lower() for ext in [".jpg", ".jpeg", ".png"]):
                     try:
                         await asyncio.sleep(4)
                         url = url.replace(" ", "%20")
@@ -533,49 +520,50 @@ async def txt_handler(bot: Client, m: Message):
                     except Exception as e:
                         await m.reply_text(f"An error occurred: {str(e)}")
                         await asyncio.sleep(4)
-                        
-            elif '/master.mpd' in url or "/dash/" in url or ".mp4?" in url or "?Signature=" in url or "d1d34p8vz63oiq.cloudfront.net" in url or "parentId=" in url or "childId=" in url:
-                Show = f"**Physics Wallah**\n\n✰🖥️𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀»\n\n📝 Title:- `{name}\n\n🖥️ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe"
-                prog = await m.reply_text(Show)
-                output_filename = f"{name}.mp4"
-                res_file = pwdlx_video(url, output_filename)
-                filename = res_file
-                await prog.delete(True)
-                await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
-                count += 1
-                time.sleep(e.x)
-                continue
-                    
-            elif 'akamai-cdn.classplusapp.com' in url:
-                Show = f"**```ClassPlus```**\n\n✰🖥️𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀»\n\n📝 Title:- `{name}\n\n🖥️ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe"
-                prog = await m.reply_text(Show)
-                output_filename = f"{name}.mp4"
-                res_file = new_classplus_cdn(url, raw_text2, output_filename)
-                filename = res_file
-                await prog.delete(True)
-                await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
-                count += 1
-                time.sleep(e.x)
-                continue
-                    
-            else:
-                Show = f"✰🖥️ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀 »\n\n📝 Title:- `{name}\n\n📹 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe ❖"
-                prog = await m.reply_text(Show)
-                res_file = await helper.download_video(url, cmd, name)
-                filename = res_file
-                await prog.delete(True)
-                await emoji_message.delete()
-                await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
-                count += 1
-                time.sleep(1)
 
-        except Exception as e:
-            await m.reply_text(f"⌘ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝐈𝐧𝐭𝐞𝐫𝐮𝐩𝐭𝐞𝐝\n\n⌘ 𝐍𝐚𝐦𝐞 » {name}\n⌘ 𝐋𝐢𝐧𝐤 » `{url}`")
-            count += 1
-            continue
-except Exception as e:
-    await m.reply_text(e)    
-await m.reply_text( "𝙀𝙑𝙀𝙍𝙔𝙏𝙃𝙄𝙉𝙂 𝙄𝙎 𝘿𝙊𝙉𝙀  𝘿𝙊𝙉𝙀 \n\n** 𝐍𝐎𝐖 𝐆𝐈𝐕𝐄 𝐘𝐎𝐔𝐑 𝐔𝐍𝐋𝐈𝐌𝐈𝐓𝐄𝐃 𝐑𝐄𝐀𝐂𝐓𝐈𝐎𝐍𝐒 ✅**")
+                elif '/master.mpd' in url or ".mp4?" in url or "?Signature=" in url or "d1d34p8vz63oiq.cloudfront.net" in url or "parentId=" in url or "childId=" in url:
+                    Show = f"**Physics Wallah**\n\n✰🖥️𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀»\n\n📝 Title:- `{name}\n\n🖥️ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe"
+                    prog = await m.reply_text(Show)
+                    output_filename = f"{name}.mp4"
+                    res_file = pwdlx_video(url, output_filename)
+                    filename= res_file
+                    await prog.delete(True)
+                    await emoji_message.delete()
+                    await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
+                    count += 1
+                    time.sleep(1)
+                    continue
+                    
+                elif 'akamai-cdn.classplusapp.com' in url:
+                    Show = f"**```ClassPlus```**\n\n✰🖥️𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀»\n\n📝 Title:- `{name}\n\n🖥️ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe"
+                    prog = await m.reply_text(Show)
+                    output_filename = f"{name}.mp4"
+                    res_file = new_classplus_cdn(url, raw_text2, output_filename)
+                    filename = res_file
+                    await prog.delete(True)
+                    await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
+                    count += 1
+                    time.sleep(e.x)
+                    continue
+                
+                else:
+                    Show = f"✰🖥️ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀 »\n\n📝 Title:- `{name}\n\n📹 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe ❖"
+                    prog = await m.reply_text(Show)
+                    res_file = await helper.download_video(url, cmd, name)
+                    filename = res_file
+                    await prog.delete(True)
+                    await emoji_message.delete()
+                    await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
+                    count += 1
+                    time.sleep(1)
+
+            except Exception as e:
+                await m.reply_text(f"⌘ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝐈𝐧𝐭𝐞𝐫𝐮𝐩𝐭𝐞𝐝\n\n⌘ 𝐍𝐚𝐦𝐞 » {name}\n⌘ 𝐋𝐢𝐧𝐤 » `{url}`")
+                count += 1
+                continue
+    except Exception as e:
+        await m.reply_text(e)    
+    await m.reply_text( "𝙀𝙑𝙀𝙍𝙔𝙏𝙃𝙄𝙉𝙂 𝙄𝙎 𝘿𝙊𝙉𝙀  𝘿𝙊𝙉𝙀 \n\n** 𝐍𝐎𝐖 𝐆𝐈𝐕𝐄 𝐘𝐎𝐔𝐑 𝐔𝐍𝐋𝐈𝐌𝐈𝐓𝐄𝐃 𝐑𝐄𝐀𝐂𝐓𝐈𝐎𝐍𝐒 ✅**")
 
 
 # Advance
@@ -761,41 +749,8 @@ async def txt_handler(bot: Client, m: Message):
                         await m.reply_text(str(e))
                         time.sleep(e.x)
                         continue
-
-            elif ".pdf" in url:
-                    try:
-                        await asyncio.sleep(4)
-        # Replace spaces with %20 in the URL
-                        url = url.replace(" ", "%20")
- 
-        # Create a cloudscraper session
-                        scraper = cloudscraper.create_scraper()
-
-        # Send a GET request to download the PDF
-                        response = scraper.get(url)
-
-        # Check if the response status is OK
-                        if response.status_code == 200:
-            # Write the PDF content to a file
-                            with open(f'{name}.pdf', 'wb') as file:
-                                file.write(response.content)
-
-            # Send the PDF document
-                            await asyncio.sleep(4)
-                            copy = await bot.send_document(chat_id=m.chat.id, document=f'{name}.pdf', caption=cc1)
-                            count += 1
-
-            # Remove the PDF file after sending
-                            os.remove(f'{name}.pdf')
-                        else:
-                            await m.reply_text(f"Failed to download PDF: {response.status_code} {response.reason}")
-
-                    except FloodWait as e:
-                        await m.reply_text(str(e))
-                        time.sleep(e.x)
-                        continue
-
-            elif ".pdf" in url:
+                        
+                elif ".pdf" in url:
                     try:
                         cmd = f'yt-dlp -o "{name}.pdf" "{url}"'
                         download_cmd = f"{cmd} -R 25 --fragment-retries 25"
@@ -806,70 +761,97 @@ async def txt_handler(bot: Client, m: Message):
                     except FloodWait as e:
                         await m.reply_text(str(e))
                         time.sleep(e.x)
+                        count += 1
                         continue
-
-            elif any(img in url.lower() for img in ['.jpeg', '.png', '.jpg']):
-                        try:
-                            subprocess.run(['wget', url, '-O', f'{name}.jpg'], check=True)  # Fixing this line
-                            await bot.send_photo(
-                                chat_id=m.chat.id,
-                                caption = ccimg,
-                                photo= f'{name}.jpg',  )
+                        
+                elif ".pdf" in url:
+                    try:
+                        await asyncio.sleep(4)
+                        url = url.replace(" ", "%20")
+                        scraper = cloudscraper.create_scraper()
+                        response = scraper.get(url)
+                        if response.status_code == 200:
+                            with open(f'{name}.pdf', 'wb') as file:
+                                file.write(response.content)
+                            await asyncio.sleep(4)
+                            copy = await bot.send_document(chat_id=m.chat.id, document=f'{name}.pdf', caption=cc1)
                             count += 1
-                            await asyncio.sleep(1)
-                            continue
-                        except subprocess.CalledProcessError:
-                            await message.reply("Failed to download the image. Please check the URL.")
-                        except Exception as e:
-                            await message.reply(f"An error occurred: {e}")
-                        finally:
-                            # Clean up the downloaded file
-                            if os.path.exists(f'{name}.jpg'):
-                                os.remove(f'{name}.jpg')
+                            os.remove(f'{name}.pdf')
+                        else:
+                            await m.reply_text(f"Failed to download PDF: {response.status_code} {response.reason}")
+                    except FloodWait as e:
+                        await m.reply_text(str(e))
+                        time.sleep(e.x)
+                        count += 1
+                        continue
+                        
+                elif any(ext in url.lower() for ext in [".jpg", ".jpeg", ".png"]):
+                    try:
+                        await asyncio.sleep(4)
+                        url = url.replace(" ", "%20")
+                        scraper = cloudscraper.create_scraper()
+                        response = scraper.get(url)
+                        if response.status_code == 200:
+                            with open(f'{name}.jpg', 'wb') as file:
+                                file.write(response.content)
+                            await asyncio.sleep(2)
+                            copy = await bot.send_photo(chat_id=m.chat.id, photo=f'{name}.jpg', caption=ccimg)
+                            count += 1
+                            os.remove(f'{name}.jpg')
+                        else:
+                            await m.reply_text(f"Failed to download Image: {response.status_code} {response.reason}")
+                    except FloodWait as e:
+                        await m.reply_text(str(e))
+                        await asyncio.sleep(2)
+                        return
+                    except Exception as e:
+                        await m.reply_text(f"An error occurred: {str(e)}")
+                        await asyncio.sleep(4)
 
+                elif '/master.mpd' in url or ".mp4?" in url or "?Signature=" in url or "d1d34p8vz63oiq.cloudfront.net" in url or "parentId=" in url or "childId=" in url:
+                    Show = f"**Physics Wallah**\n\n✰🖥️𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀»\n\n📝 Title:- `{name}\n\n🖥️ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe"
+                    prog = await m.reply_text(Show)
+                    output_filename = f"{name}.mp4"
+                    res_file = pwdlx_video(url, output_filename)
+                    filename= res_file
+                    await prog.delete(True)
+                    await emoji_message.delete()
+                    await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
+                    count += 1
+                    time.sleep(1)
+                    continue
+                    
+                elif 'akamai-cdn.classplusapp.com' in url:
+                    Show = f"**```ClassPlus```**\n\n✰🖥️𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀»\n\n📝 Title:- `{name}\n\n🖥️ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe"
+                    prog = await m.reply_text(Show)
+                    output_filename = f"{name}.mp4"
+                    res_file = new_classplus_cdn(url, raw_text2, output_filename)
+                    filename = res_file
+                    await prog.delete(True)
+                    await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
+                    count += 1
+                    time.sleep(e.x)
+                    continue
                 
-            elif '/master.mpd' in url or "/dash/" in url or ".mp4?" in url or "?Signature=" in url or "d1d34p8vz63oiq.cloudfront.net" in url or "parentId=" in url or "childId=" in url:
-                Show = f"**Physics Wallah**\n\n✰🖥️𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀»\n\n📝 Title:- `{name}\n\n🖥️ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe"
-                prog = await m.reply_text(Show)
-                output_filename = f"{name}.mp4"
-                res_file = pwdlx_video(url, output_filename)
-                filename = res_file
-                await prog.delete(True)
-                await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
-                count += 1
-                time.sleep(e.x)
-                continue
-                    
-            elif 'akamai-cdn.classplusapp.com' in url:
-                Show = f"**```ClassPlus```**\n\n✰🖥️𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀»\n\n📝 Title:- `{name}\n\n🖥️ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe"
-                prog = await m.reply_text(Show)
-                output_filename = f"{name}.mp4"
-                res_file = new_classplus_cdn(url, raw_text2, output_filename)
-                filename = res_file
-                await prog.delete(True)
-                await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
-                count += 1
-                time.sleep(e.x)
-                continue
-                    
-            else:
-                Show = f"✰🖥️ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀 »\n\n📝 Title:- `{name}\n\n📹 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe ❖"
-                prog = await m.reply_text(Show)
-                res_file = await helper.download_video(url, cmd, name)
-                filename = res_file
-                await prog.delete(True)
-                await emoji_message.delete()
-                await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
-                count += 1
-                time.sleep(1)
+                else:
+                    Show = f"✰🖥️ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝗪𝗮𝗶𝘁..🤖🚀 »\n\n📝 Title:- `{name}\n\n📹 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`\n\n**𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲🧸: ✦ @rahulx45_vibe ❖"
+                    prog = await m.reply_text(Show)
+                    res_file = await helper.download_video(url, cmd, name)
+                    filename = res_file
+                    await prog.delete(True)
+                    await emoji_message.delete()
+                    await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
+                    count += 1
+                    time.sleep(1)
 
-        except Exception as e:
-            await m.reply_text(f"⌘ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝐈𝐧𝐭𝐞𝐫𝐮𝐩𝐭𝐞𝐝\n\n⌘ 𝐍𝐚𝐦𝐞 » {name}\n⌘ 𝐋𝐢𝐧𝐤 » `{url}`")
-            count += 1
-            continue
-except Exception as e:
-    await m.reply_text(e)    
-await m.reply_text( "𝙀𝙑𝙀𝙍𝙔𝙏𝙃𝙄𝙉𝙂 𝙄𝙎 𝘿𝙊𝙉𝙀  𝘿𝙊𝙉𝙀 \n\n** 𝐍𝐎𝐖 𝐆𝐈𝐕𝐄 𝐘𝐎𝐔𝐑 𝐔𝐍𝐋𝐈𝐌𝐈𝐓𝐄𝐃 𝐑𝐄𝐀𝐂𝐓𝐈𝐎𝐍𝐒 ✅**")
+            except Exception as e:
+                await m.reply_text(f"⌘ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝐈𝐧𝐭𝐞𝐫𝐮𝐩𝐭𝐞𝐝\n\n⌘ 𝐍𝐚𝐦𝐞 » {name}\n⌘ 𝐋𝐢𝐧𝐤 » `{url}`")
+                count += 1
+                continue
+    except Exception as e:
+        await m.reply_text(e)    
+    await m.reply_text( "𝙀𝙑𝙀𝙍𝙔𝙏𝙃𝙄𝙉𝙂 𝙄𝙎 𝘿𝙊𝙉𝙀  𝘿𝙊𝙉𝙀 \n\n** 𝐍𝐎𝐖 𝐆𝐈𝐕𝐄 𝐘𝐎𝐔𝐑 𝐔𝐍𝐋𝐈𝐌𝐈𝐓𝐄𝐃 𝐑𝐄𝐀𝐂𝐓𝐈𝐎𝐍𝐒 ✅**")
+
 
 
 bot.run()
