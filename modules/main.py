@@ -569,15 +569,13 @@ async def txt_handler(bot: Client, m: Message):
                 count += 1
                 time.sleep(1)
 
-            except Exception as e:
-                await m.reply_text(f"⌘ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝐈𝐧𝐭𝐞𝐫𝐮𝐩𝐭𝐞𝐝\n\n⌘ 𝐍𝐚𝐦𝐞 » {name}\n⌘ 𝐋𝐢𝐧𝐤 » `{url}`")
-                count += 1
-                continue
-
-
-    except Exception as e:
-        await m.reply_text(e)    
-    await m.reply_text( "𝙀𝙑𝙀𝙍𝙔𝙏𝙃𝙄𝙉𝙂 𝙄𝙎 𝘿𝙊𝙉𝙀  𝘿𝙊𝙉𝙀 \n\n** 𝐍𝐎𝐖 𝐆𝐈𝐕𝐄 𝐘𝐎𝐔𝐑 𝐔𝐍𝐋𝐈𝐌𝐈𝐓𝐄𝐃 𝐑𝐄𝐀𝐂𝐓𝐈𝐎𝐍𝐒 ✅**")
+        except Exception as e:
+            await m.reply_text(f"⌘ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝐈𝐧𝐭𝐞𝐫𝐮𝐩𝐭𝐞𝐝\n\n⌘ 𝐍𝐚𝐦𝐞 » {name}\n⌘ 𝐋𝐢𝐧𝐤 » `{url}`")
+            count += 1
+            continue
+except Exception as e:
+    await m.reply_text(e)    
+await m.reply_text( "𝙀𝙑𝙀𝙍𝙔𝙏𝙃𝙄𝙉𝙂 𝙄𝙎 𝘿𝙊𝙉𝙀  𝘿𝙊𝙉𝙀 \n\n** 𝐍𝐎𝐖 𝐆𝐈𝐕𝐄 𝐘𝐎𝐔𝐑 𝐔𝐍𝐋𝐈𝐌𝐈𝐓𝐄𝐃 𝐑𝐄𝐀𝐂𝐓𝐈𝐎𝐍𝐒 ✅**")
 
 
 # Advance
@@ -865,15 +863,13 @@ async def txt_handler(bot: Client, m: Message):
                 count += 1
                 time.sleep(1)
 
-            except Exception as e:
-                await m.reply_text(f"⌘ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝐈𝐧𝐭𝐞𝐫𝐮𝐩𝐭𝐞𝐝\n\n⌘ 𝐍𝐚𝐦𝐞 » {name}\n⌘ 𝐋𝐢𝐧𝐤 » `{url}`")
-                count += 1
-                continue
-
-
-    except Exception as e:
-        await m.reply_text(e)    
-    await m.reply_text( "𝙀𝙑𝙀𝙍𝙔𝙏𝙃𝙄𝙉𝙂 𝙄𝙎 𝘿𝙊𝙉𝙀  𝘿𝙊𝙉𝙀 \n\n** 𝐍𝐎𝐖 𝐆𝐈𝐕𝐄 𝐘𝐎𝐔𝐑 𝐔𝐍𝐋𝐈𝐌𝐈𝐓𝐄𝐃 𝐑𝐄𝐀𝐂𝐓𝐈𝐎𝐍𝐒 ✅**")
+        except Exception as e:
+            await m.reply_text(f"⌘ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 𝐈𝐧𝐭𝐞𝐫𝐮𝐩𝐭𝐞𝐝\n\n⌘ 𝐍𝐚𝐦𝐞 » {name}\n⌘ 𝐋𝐢𝐧𝐤 » `{url}`")
+            count += 1
+            continue
+except Exception as e:
+    await m.reply_text(e)    
+await m.reply_text( "𝙀𝙑𝙀𝙍𝙔𝙏𝙃𝙄𝙉𝙂 𝙄𝙎 𝘿𝙊𝙉𝙀  𝘿𝙊𝙉𝙀 \n\n** 𝐍𝐎𝐖 𝐆𝐈𝐕𝐄 𝐘𝐎𝐔𝐑 𝐔𝐍𝐋𝐈𝐌𝐈𝐓𝐄𝐃 𝐑𝐄𝐀𝐂𝐓𝐈𝐎𝐍𝐒 ✅**")
 
 
 bot.run()
