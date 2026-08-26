@@ -447,9 +447,9 @@ async def txt_handler(bot: Client, m: Message):
                 cmd = f'yt-dlp -f "{ytf}" "{url}" -o "{name}.mp4"'
 
                         
-                cc = f"📁 **𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 𝐕𝐈𝐃𝐄𝐎 𝐋𝐄𝐂𝐓𝐔𝐑𝐄** 🎬\n|\n|-◆ **𝐓𝐈𝐓𝐋𝐄 ->** 〖 {name1} 〗 🎬⚡\n|\n|-◆ **𝐁𝐀𝐓𝐂𝐇 ->** 〖 {b_name} 〗 🚨\n|\n|-◆ **𝐄𝐗𝐓𝐑𝐀𝐂𝐓𝐄𝐃 𝐁𝐘 ->** {CR} 👑\n|\n\\_________________________\n\n═══『 **𝐌𝐫_𝐗𝟒𝟓** 』═══"
-                cc1 = f"📁 **𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 𝐒𝐓𝐔𝐃𝐘 𝐃𝐎𝐂𝐔𝐌𝐄𝐍𝐓** 📚\n|\n|-◆ **𝐓𝐈𝐓𝐋𝐄 ->** 〖 {name1} 〗 📚✨\n|\n|-◆ **𝐁𝐀𝐓𝐂𝐇 ->** 〖 {b_name} 〗 🍁\n|\n|-◆ **𝐄𝐗𝐓𝐑𝐀𝐂𝐓𝐄𝐃 𝐁𝐘 ->** {CR} 🌸\n|\n\\_________________________\n\n═══『 **𝐌𝐫_𝐗𝟒𝟓** 』═══"
-                ccimg = f"🖼 **𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 𝐈𝐌𝐀𝐆𝐄 𝐍𝐎𝐓𝐄𝐒** 🖼\n|\n|-◆ **𝐓𝐈𝐓𝐋𝐄 ->** 〖 {name1} 〗 🖼✨\n|\n|-◆ **𝐁𝐀𝐓𝐂𝐇 ->** 〖 {b_name} 〗 🍁\n|\n|-◆ **𝐄𝐗𝐓𝐑𝐀𝐂𝐓𝐄𝐃 𝐁𝐘 ->** {CR} 🌸\n|\n\\_________________________\n\n═══『 **𝐌𝐫_𝐗𝟒𝟓** 』═══"
+                cc = f"❖ **VIDEO ID** ▸ `{count}`\n\n❖ **TITLE** ▸ \n**❝ {name1} ❞** ⚡️\n\n❖ **BATCH NAME** ▸ \n**❝ {b_name} ❞** 🚨\n\n✈️ **DOWNLOADED BY** ➪ **{CR}**\n\n════ **Powered By Mr-X45** ════"
+                cc1 = f"❖ **PDF ID** ▸ `{count}`\n\n❖ **TITLE** ▸ \n**❝ {name1} ❞** ✨\n\n❖ **BATCH NAME** ▸ \n**❝ {b_name} ❞** 🍁\n\n✈️ **DOWNLOADED BY** ➪ **{CR}**\n\n════ **Powered By Mr-X45** ════"
+                ccimg = f"❖ **IMAGE ID** ▸ `{count}`\n\n❖ **TITLE** ▸ \n**❝ {name1} ❞** 🖼✨\n\n❖ **BATCH NAME** ▸ \n**❝ {b_name} ❞** 🍁\n\n✈️ **DOWNLOADED BY** ➪ **{CR}**\n\n════ **Powered By Mr-X45** ════"
             
                 if "drive" in url:
                     try:
@@ -725,9 +725,9 @@ async def txt_handler(bot: Client, m: Message):
             else:
                 cmd = f'yt-dlp -f "{ytf}" "{url}" -o "{name}.mp4"'
 
-            cc = f"📁 **𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 𝐕𝐈𝐃𝐄𝐎 𝐋𝐄𝐂𝐓𝐔𝐑𝐄** 🎬\n|\n|-◆ **𝐓𝐈𝐓𝐋𝐄 ->** 〖 {name1} 〗 🎬⚡\n|\n|-◆ **𝐁𝐀𝐓𝐂𝐇 ->** 〖 {b_name} 〗 🚨\n|\n|-◆ **𝐄𝐗𝐓𝐑𝐀𝐂𝐓𝐄𝐃 𝐁𝐘 ->** {CR} 👑\n|\n\\_________________________\n\n═══『 **𝐌𝐫_𝐗𝟒𝟓** 』═══"
-            cc1 = f"📁 **𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 𝐒𝐓𝐔𝐃𝐘 𝐃𝐎𝐂𝐔𝐌𝐄𝐍𝐓** 📚\n|\n|-◆ **𝐓𝐈𝐓𝐋𝐄 ->** 〖 {name1} 〗 📚✨\n|\n|-◆ **𝐁𝐀𝐓𝐂𝐇 ->** 〖 {b_name} 〗 🍁\n|\n|-◆ **𝐄𝐗𝐓𝐑𝐀𝐂𝐓𝐄𝐃 𝐁𝐘 ->** {CR} 🌸\n|\n\\_________________________\n\n═══『 **𝐌𝐫_𝐗𝟒𝟓** 』═══"
-            ccimg = f"🖼 **𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 𝐈𝐌𝐀𝐆𝐄 𝐍𝐎𝐓𝐄𝐒** 🖼\n|\n|-◆ **𝐓𝐈𝐓𝐋𝐄 ->** 〖 {name1} 〗 🖼✨\n|\n|-◆ **𝐁𝐀𝐓𝐂𝐇 ->** 〖 {b_name} 〗 🍁\n|\n|-◆ **𝐄𝐗𝐓𝐑𝐀𝐂𝐓𝐄𝐃 𝐁𝐘 ->** {CR} 🌸\n|\n\\_________________________\n\n═══『 **𝐌𝐫_𝐗𝟒𝟓** 』═══"
+            cc = f"❖ **VIDEO ID** ▸ `{count}`\n\n❖ **TITLE** ▸ \n**❝ {name1} ❞** ⚡\n\n❖ **BATCH NAME** ▸ \n**❝ {b_name} ❞** 🚨\n\n✈️ **DOWNLOADED BY** ➪ **{CR}**\n\n════ **Powered By Mr-X45** ════"
+            cc1 = f"❖ **PDF ID** ▸ `{count}`\n\n❖ **TITLE** ▸ \n**❝ {name1} ❞** ✨\n\n❖ **BATCH NAME** ▸ \n**❝ {b_name} ❞** 🍁\n\n✈️ **DOWNLOADED BY** ➪ **{CR}**\n\n════ **Powered By Mr-X45** ════"
+            ccimg = f"❖ **IMAGE ID** ▸ `{count}`\n\n❖ **TITLE** ▸ \n**❝ {name1} ❞** 🖼✨\n\n❖ **BATCH NAME** ▸ \n**❝ {b_name} ❞** 🍁\n\n✈️ **DOWNLOADED BY** ➪ **{CR}**\n\n════ **Powered By Mr-X45** ════"
                 
             if "drive" in url:
                     try:
