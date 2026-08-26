@@ -451,7 +451,7 @@ async def txt_handler(bot: Client, m: Message):
             cc1 = f"📁 **𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 𝐒𝐓𝐔𝐃𝐘 𝐃𝐎𝐂𝐔𝐌𝐄𝐍𝐓** 📚\n|\n|-◆ **𝐓𝐈𝐓𝐋𝐄 ->** 〖 {name1} 〗 📚✨\n|\n|-◆ **𝐁𝐀𝐓𝐂𝐇 ->** 〖 {b_name} 〗 🍁\n|\n|-◆ **𝐄𝐗𝐓𝐑𝐀𝐂𝐓𝐄𝐃 𝐁𝐘 ->** {CR} 🌸\n|\n\\_________________________\n\n═══『 **𝐌𝐫_𝐗𝟒𝟓** 』═══"
             ccimg = f"🖼 **𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 𝐈𝐌𝐀𝐆𝐄 𝐍𝐎𝐓𝐄𝐒** 🖼\n|\n|-◆ **𝐓𝐈𝐓𝐋𝐄 ->** 〖 {name1} 〗 🖼✨\n|\n|-◆ **𝐁𝐀𝐓𝐂𝐇 ->** 〖 {b_name} 〗 🍁\n|\n|-◆ **𝐄𝐗𝐓𝐑𝐀𝐂𝐓𝐄𝐃 𝐁𝐘 ->** {CR} 🌸\n|\n\\_________________________\n\n═══『 **𝐌𝐫_𝐗𝟒𝟓** 』═══"
             
-            if "drive" in url:
+                if "drive" in url:
                     try:
                         ka = await helper.download(url, name)
                         copy = await bot.send_document(chat_id=m.chat.id,document=ka, caption=cc1)
@@ -463,7 +463,7 @@ async def txt_handler(bot: Client, m: Message):
                         time.sleep(e.x)
                         continue
                         
-            elif ".pdf" in url:
+                elif ".pdf" in url:
                     try:
                         cmd = f'yt-dlp -o "{name}.pdf" "{url}"'
                         download_cmd = f"{cmd} -R 25 --fragment-retries 25"
@@ -498,7 +498,7 @@ async def txt_handler(bot: Client, m: Message):
                         count += 1
                         continue
                         
-                elif any(ext in url.lower() for ext in [".jpg", ".jpeg", ".png"]):
+            elif any(ext in url.lower() for ext in [".jpg", ".jpeg", ".png"]):
                     try:
                         await asyncio.sleep(4)
                         url = url.replace(" ", "%20")
