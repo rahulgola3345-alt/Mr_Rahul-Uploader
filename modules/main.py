@@ -498,7 +498,7 @@ async def txt_handler(bot: Client, m: Message):
                         count += 1
                         continue
                         
-            elif any(ext in url.lower() for ext in [".jpg", ".jpeg", ".png"]):
+                elif any(ext in url.lower() for ext in [".jpg", ".jpeg", ".png"]):
                     try:
                         await asyncio.sleep(4)
                         url = url.replace(" ", "%20")
