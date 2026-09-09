@@ -23,10 +23,10 @@ jobs:
       - name: Install All Python Modules
         run: |
           pip install --upgrade pip
-          pip install m3u8 requests yt-dlp pyrogram tgcrypto aiohttp aiofiles motor python-dotenv beautifulsoup4 mutagen ffmpeg-python cryptography pycryptodome cloudscraper PyYaml Pillow urllib3 pscript pywidevine
+          pip install pytube requests yt-dlp pyrogram tgcrypto aiohttp aiofiles motor python-dotenv beautifulsoup4 mutagen ffmpeg-python cryptography pycryptodome cloudscraper PyYaml Pillow urllib3 pscript pywidevine pdfplumber PyPDF2 reportlab
 
       - name: Run Telegram Bot
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         run: |
-          python modules/main.py
+          PYTHONPATH=modules python modules/main.py
