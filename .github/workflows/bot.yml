@@ -2,10 +2,13 @@ name: Telegram Bot Runner
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 */5 * * *' # Har 5 ghante me automatic chalega
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
+    timeout-minutes: 350 # 350 minutes (~5.5 ghante) me safely stop ho jayega
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
