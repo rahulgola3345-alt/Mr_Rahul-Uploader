@@ -15,10 +15,15 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install dependencies
+      - name: Install System Tools (ffmpeg)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Install All Downloader Libraries
         run: |
           pip install --upgrade pip
-          pip install requests pyrogram tgcrypto aiohttp aiofiles motor python-dotenv
+          pip install requests yt-dlp pyrogram tgcrypto aiohttp aiofiles motor python-dotenv beautifulsoup4 mutagen ffmpeg-python cryptography pycryptodome
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run Telegram Bot
