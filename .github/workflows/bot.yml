@@ -18,13 +18,15 @@ jobs:
       - name: Install System Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg
+          sudo apt-get install -y ffmpeg aria2
 
-      - name: Install All Python Modules
+      - name: Install All Downloader Modules
         run: |
           pip install --upgrade pip
-          pip install requests yt-dlp pyrogram tgcrypto aiohttp aiofiles motor python-dotenv beautifulsoup4 mutagen ffmpeg-python cryptography pycryptodome cloudscraper PyYaml Pillow urllib3 pscript
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install m3u8 requests yt-dlp pyrogram tgcrypto aiohttp aiofiles motor python-dotenv beautifulsoup4 mutagen ffmpeg-python cryptography pycryptodome cloudscraper PyYaml Pillow urllib3 pscript pipreqs
+          pip install pywidevine shaka-packager
+          pipreqs . --force || true
+          if [ -f requirements.txt ]; then pip install -r requirements.txt || true; fi
 
       - name: Run Telegram Bot
         env:
