@@ -3,12 +3,12 @@ name: Telegram Bot Runner
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */5 * * *' # Har 5 ghante me automatic chalega
+    - cron: '0 */5 * * *'
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
-    timeout-minutes: 350 # 350 minutes (~5.5 ghante) me safely stop ho jayega
+    timeout-minutes: 350
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -28,8 +28,33 @@ jobs:
           pip install --upgrade pip
           pip install pyromod m3u8 pytube requests yt-dlp pyrogram tgcrypto aiohttp aiofiles motor python-dotenv beautifulsoup4 mutagen ffmpeg-python cryptography pycryptodome cloudscraper PyYaml Pillow urllib3 pscript pdfplumber PyPDF2 reportlab
 
-      - name: Run Telegram Bot
+      - name: Run 3 Bots Parallelly
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          BOT_TOKEN_2: ${{ secrets.BOT_TOKEN_2 }}
+          BOT_TOKEN_3: ${{ secrets.BOT_TOKEN_3 }}
         run: |
-          PYTHONPATH=modules python modules/main.py
+          # Pehle bot ke liye setup aur run
+          mkdir -p bot1 && cp -r modules bot1/
+          cd bot1
+          PYTHONPATH=modules BOT_TOKEN="$BOT_TOKEN" python modules/main.py &
+          cd ..
+
+          # Dusre bot ke liye setup aur run (agar BOT_TOKEN_2 set hai)
+          if [ -n "$BOT_TOKEN_2" ]; then
+            mkdir -p bot2 && cp -r modules bot2/
+            cd bot2
+            PYTHONPATH=modules BOT_TOKEN="$BOT_TOKEN_2" python modules/main.py &
+            cd ..
+          fi
+
+          # Teesre bot ke liye setup aur run (agar BOT_TOKEN_3 set hai)
+          if [ -n "$BOT_TOKEN_3" ]; then
+            mkdir -p bot3 && cp -r modules bot3/
+            cd bot3
+            PYTHONPATH=modules BOT_TOKEN="$BOT_TOKEN_3" python modules/main.py &
+            cd ..
+          fi
+
+          # Sabhi processes ko live rakhne ke liye
+          wait
