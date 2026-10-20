@@ -410,7 +410,7 @@ async def txt_handler(bot: Client, m: Message):
                         text = await resp.text()
                         url = re.search(r"(https://.*?playlist.m3u8.*?)\"", text).group(1)
 
-            elif 'https://contentId=' in url or 'sessionId=' in url:
+            elif 'https://contentId=' in url or 'https://sessionId=' in url:
                 # content_id = extract_content_id(url)
                 # cpurl = get_jw_signed_url(content_id, access_token)
                 url = f"https://ankitshakyaxapi.vercel.app/api/cp/download?url={url}&token={raw_text4}&quality={raw_text2}"
