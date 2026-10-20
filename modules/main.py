@@ -700,9 +700,9 @@ async def txt_handler(bot: Client, m: Message):
             
             elif '/master.mpd' in url or "/dash/" in url or ".mp4?" in url or "?Signature=" in url or "d1d34p8vz63oiq.cloudfront.net" in url or "parentId=" in url or "childId=" in url:
                 if "parentId=" in url or "childId=" in url:
-                    url = f"https://ankitshakyaxapi.vercel.app/download?mpd_url={url}&token={raw_text4}&quality={raw_text2}"
+                    url = f"https://ankitshakyaxapi.vercel.app/api/cp/download?url=%7Burl%7D&token=%7Braw_text4%7D&quality=%7Braw_text2%7D"
                 else:
-                    url = f"https://ankitshakyaxapi.vercel.app/download?mpd_url={url}&quality={raw_text2}"
+                    url = f"https://ankitshakyaxapi.vercel.app/api/cp/download?url=%7Burl%7D&token=%7Braw_text4%7D&quality=%7Braw_text2%7D"
                     
             name1 = links[i][0].replace("\t", "").replace(":", "").replace("/", "").replace("+", "").replace("#", "").replace("|", "").replace("@", "").replace("*", "").replace(".", "").replace("https", "").replace("http", "").strip()
             name = f'{str(count).zfill(3)}) {name1[:60]} {my_name}'
