@@ -410,12 +410,11 @@ async def txt_handler(bot: Client, m: Message):
                         text = await resp.text()
                         url = re.search(r"(https://.*?playlist.m3u8.*?)\"", text).group(1)
 
-            elif 'https://contentId=' in url or 'contentHashIdl=' in url:
-                content_id = extract_content_id(url)
-                cpurl = get_jw_signed_url(content_id, access_token)
-                print(f"Fetched URL: {cpurl}") # Debugging ke liye
-                url = cpurl
-                print(f"CP Url: {url}")
+            elif 'https://contentId=' in url or 'sessionId=' in url:
+                # content_id = extract_content_id(url)
+                # cpurl = get_jw_signed_url(content_id, access_token)
+                url = f"https://ankitshakyaxapi.vercel.app/api/cp/download?url={url}&token={raw_text4}&quality={raw_text2}"
+                print(url)
             
             
             elif '/master.mpd' in url or "/dash/" in url or ".mp4?" in url or "?Signature=" in url or "d1d34p8vz63oiq.cloudfront.net" in url or "parentId=" in url or "childId=" in url:
