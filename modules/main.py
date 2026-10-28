@@ -738,7 +738,7 @@ async def txt_handler(bot: Client, m: Message):
                         time.sleep(1)
                     except FloodWait as e:
                         await m.reply_text(str(e))
-                        time.sleep(e.x)
+                        time.sleep(1)
                         continue
                         
             elif ".pdf" in url:
@@ -751,7 +751,7 @@ async def txt_handler(bot: Client, m: Message):
                         os.remove(f'{name}.pdf')
                     except FloodWait as e:
                         await m.reply_text(str(e))
-                        time.sleep(e.x)
+                        time.sleep(1)
                         count += 1
                         continue
                         
@@ -772,7 +772,7 @@ async def txt_handler(bot: Client, m: Message):
                             await m.reply_text(f"Failed to download PDF: {response.status_code} {response.reason}")
                     except FloodWait as e:
                         await m.reply_text(str(e))
-                        time.sleep(e.x)
+                        time.sleep(1)
                         count += 1
                         continue
                         
