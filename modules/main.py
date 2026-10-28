@@ -542,7 +542,7 @@ async def txt_handler(bot: Client, m: Message):
                     await prog.delete(True)
                     await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
                     count += 1
-                    time.sleep(e.x)
+                    time.sleep(1)
                     continue
                 
                 else:
@@ -820,7 +820,7 @@ async def txt_handler(bot: Client, m: Message):
                 await prog.delete(True)
                 await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
                 count += 1
-                time.sleep(e.x)
+                time.sleep(1)
                 continue
                 
             else:
